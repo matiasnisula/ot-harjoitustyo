@@ -1,0 +1,122 @@
+commit 9ce504b81cf4a8b7b1dc7fd7d55380c623bb1815
+Author: Matias Nisula <matiasnisula81@gmail.com>
+Date:   Thu Oct 29 20:09:06 2020 +0200
+
+    file2 nimenmuutos ja file1 poisto
+
+ tiedostoja/file1             | 0
+ tiedostoja/{file2 => file22} | 0
+ 2 files changed, 0 insertions(+), 0 deletions(-)
+
+commit 018e2d362e32c9d53862d93faca16297d1b8591b
+Author: Matias Nisula <matiasnisula81@gmail.com>
+Date:   Thu Oct 29 20:01:14 2020 +0200
+
+    hakemisto tiedostoja lisätty
+
+ tiedostoja/file1 | 0
+ tiedostoja/file2 | 0
+ tiedostoja/file3 | 0
+ 3 files changed, 0 insertions(+), 0 deletions(-)
+
+commit 1f1292a818c722fec663df14f3ef8d9d753fc9b6
+Author: Matias Nisula <matiasnisula81@gmail.com>
+Date:   Thu Oct 29 19:38:01 2020 +0200
+
+    eka.txt ja kolmas.txt lisätty ja poistettu tekstiä
+
+ eka.txt    | 2 +-
+ kolmas.txt | 4 +++-
+ 2 files changed, 4 insertions(+), 2 deletions(-)
+
+commit da61996e6fd64b17d9c52a6f5207ac36924fecd5
+Author: Matias Nisula <matiasnisula81@gmail.com>
+Date:   Thu Oct 29 19:34:24 2020 +0200
+
+    tiedosto.txt vaihdettu nimeksi eka.txt
+
+ tiedosto.txt | 16 ----------------
+ 1 file changed, 16 deletions(-)
+
+commit e21e5ab3b091c5fb7be29da3956c513d08c8c1a5
+Author: Matias Nisula <matiasnisula81@gmail.com>
+Date:   Thu Oct 29 19:33:47 2020 +0200
+
+    tiedoston nimi muutettu
+
+ eka.txt | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
+
+commit 0f418be17b0017948063f141d37bd4bd17a7ed66
+Author: Matias Nisula <matiasnisula81@gmail.com>
+Date:   Thu Oct 29 19:31:52 2020 +0200
+
+    tiedosto toinen.txt poistettu
+
+ toinen.txt | 1 -
+ 1 file changed, 1 deletion(-)
+
+commit 475c50db4e1d97a71984e5c5eaa851690637f755
+Author: Matias Nisula <matiasnisula81@gmail.com>
+Date:   Thu Oct 29 19:26:06 2020 +0200
+
+    tiedosto.txt poistettu ja lisätty tekstiä
+
+ tiedosto.txt | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
+
+commit 2741336dc5496b33126efc39f62bc585983f8808
+Author: Matias Nisula <matiasnisula81@gmail.com>
+Date:   Thu Oct 29 19:09:56 2020 +0200
+
+    tiedosto.txt muutoksia
+
+ tiedosto.txt | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
+
+commit 73ed2d6901422dab06c9f7951b123849ae3b0dfd
+Author: Matias Nisula <matiasnisula81@gmail.com>
+Date:   Thu Oct 29 18:41:25 2020 +0200
+
+    hakemisto stuff lisätty
+
+ stuff/teksti.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit 88bde87e4b403c16ebdbf81f06512d10d37688f8
+Author: Matias Nisula <matiasnisula81@gmail.com>
+Date:   Thu Oct 29 18:40:03 2020 +0200
+
+    muutoksia tiedostoihin
+
+ kolmas.txt | 1 +
+ toinen.txt | 1 +
+ 2 files changed, 2 insertions(+)
+
+commit a33d50b5933ab27354ff91dc3d0be62ec0a3d3a0
+Author: Matias Nisula <matiasnisula81@gmail.com>
+Date:   Thu Oct 29 18:36:29 2020 +0200
+
+    tiedosto kolmas.txt luotu
+
+ kolmas.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit 72e63cf0bcc701c4fbfe3601718d1ce9376e6872
+Author: Matias Nisula <matiasnisula81@gmail.com>
+Date:   Wed Oct 28 20:32:28 2020 +0200
+
+    muutos ja lisäys
+
+ tiedosto.txt | 1 +
+ toinen.txt   | 0
+ 2 files changed, 1 insertion(+)
+
+commit c6db6f21a1c24ad120d36d06c35b42ca6d35f9c5
+Author: Matias Nisula <matiasnisula81@gmail.com>
+Date:   Wed Oct 28 20:28:35 2020 +0200
+
+    tiedosto.txt luotu
+
+ tiedosto.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
