@@ -18,7 +18,7 @@ omaava pääkäyttäjä.
 
 -Käyttäjä pystyy kirjautumaan sovellukseen syöttämällä olemassa oleva käyttäjätunnus kirjautumislomakkeelle
 
-	-Jos käyttäjätunnusta ei ole olemassa, sovellus ilmoittaa tästä
+-Jos käyttäjätunnusta ei ole olemassa, sovellus ilmoittaa tästä
 
 
 ### Kirjautumisen jälkeen
@@ -27,15 +27,15 @@ omaava pääkäyttäjä.
 
 -Käyttäjä voi lisätä ja poistaa kursseja
 
--Käyttäjä voi kirjata sovellukseen jokaiseen kurssiin käyttämänsä ajan 
+-Käyttäjä voi kirjata jokaiseen kurssiin käyttämänsä ajan 
 
 -Käyttäjä voi kirjautua ulos sovelluksesta
 
 
 ### Jatkokehitysideoita
 
--Muitakin seurannan kohteita esimerkiksi urheilu, unen määrä, töissä käynti ja vapaa-aika
+-Muitakin seurannan kohteita esimerkiksi urheilu, unen määrä, töissä käynti, vapaa-aika
 
 -Käyttäjä pystyy asettamaan viikottaisia ja päivittäisiä tavotteita
 
--Käyttäjä pystyy kirjaamisen yhteydessä lisätä tarkempia tietoja suorituksesta
+-Käyttäjä pystyy kirjaamisen yhteydessä kirjoittaa lisätietoja suorituksesta
