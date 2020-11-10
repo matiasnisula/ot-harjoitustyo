@@ -53,4 +53,14 @@ public class MaksukorttiTest {
         kortti.lataaRahaa(200);
         assertEquals("saldo: 2.10", kortti.toString());
     }
+    @Test
+    public void toStringPalauttaaOikeinKunSaldoAlle10() {
+        kortti.otaRahaa(5);
+        assertEquals("saldo: 0.05", kortti.toString());
+    }
+    @Test
+    public void toStringPalauttaaOikeinKunSaldo0() {
+        kortti.otaRahaa(10);
+        assertEquals("saldo: 0.00", kortti.toString());
+    }
 }
