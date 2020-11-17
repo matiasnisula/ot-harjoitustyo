@@ -8,5 +8,5 @@ public interface UserDao {
     User findByUsername(String username) throws Exception;
     boolean usernameExists(String username) throws Exception;
     int getUserId(String username) throws Exception;
-    
+      
 }
