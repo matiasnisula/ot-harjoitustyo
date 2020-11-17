@@ -6,13 +6,13 @@ Sovelluksen avulla käyttäjän on mahdollista pitää kirjaa opintoihin käytt�
 
 Tällä hetkellä sovelluksessa on toiminnot                                                                                                     
 
-	-Käyttäjän luomiselle
+ - Käyttäjän luomiselle
 
-	-Sisäänkirjautumiselle
+ - Sisäänkirjautumiselle
 
-	-Vapaavalintaisen tehtävän (esim.kurssin) lisäämiselle
+ - Vapaavalintaisen tehtävän (esim.kurssin) lisäämiselle
  
-	-Lisättyjen tehtävien näyttäminen
+ - Lisättyjen tehtävien näyttäminen
 
 
 Sovellusta käytetään tekstikäyttöliittymän kautta.
