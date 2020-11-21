@@ -45,6 +45,9 @@ public class AppService {
             if (userDao.usernameExists(username)) {
                 loggedIn = userDao.findByUsername(username);
                 System.out.println("You are now logged in");
+            } else {
+                System.out.println("No match for username: " + username);
+                return false;
             }
         } catch (Exception e) {
             System.out.println("Virhe kirjautuessa sisään");
@@ -61,11 +64,25 @@ public class AppService {
             System.out.println(t.toString());
         }
     }
+    public void addTimeUsed(String taskName, int time) throws Exception {
+        if (loggedIn == null) {
+            System.out.println("Log in first");
+            return;
+        }
+        try {
+           taskDao.addTimeUsed(taskDao.getTask(taskName, loggedIn), loggedIn, time); 
+        } catch(Exception e) {
+            System.out.println(e.getMessage());
+        }
+        
+        
+    }
     
     public User getLoggedUser() {
         return this.loggedIn;
     }
     public void logOut() {
         this.loggedIn = null;
+        System.out.println("Logged out succesfully!");
     }
 }

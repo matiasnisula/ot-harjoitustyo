@@ -23,6 +23,7 @@ public class TUI {
         commands.put("3", "3 create task");
         commands.put("4", "4 show your tasks");
         commands.put("5", "5 log out");
+        commands.put("6", "6 add time used for task");
         
     }
     public void start() throws Exception {
@@ -49,6 +50,8 @@ public class TUI {
                 showTasks();
             } else if (command.equals("5")) {
                 logOut();
+            } else if (command.equals("6")) {
+                addTimeUsed();
             }
        }
     }
@@ -76,6 +79,14 @@ public class TUI {
     }
     private void showTasks() throws Exception{
         service.showTasks();
+    }
+    private void addTimeUsed() throws Exception {
+        System.out.print("Select task: ");
+        String taskName = reader.nextLine();
+        System.out.println("");
+        System.out.print("Time you used: ");
+        int time = Integer.parseInt(reader.nextLine());
+        service.addTimeUsed(taskName, time);
     }
     private void logOut() {
         service.logOut();

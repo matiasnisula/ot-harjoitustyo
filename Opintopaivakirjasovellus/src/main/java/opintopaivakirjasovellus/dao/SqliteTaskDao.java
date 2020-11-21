@@ -86,6 +86,62 @@ public class SqliteTaskDao implements TaskDao {
         } 
         return conn;
     }
+    public int getTimeUsed(Task task, User user) throws Exception {
+        Connection conn = null;
+        int result = 0;
+        try {
+            conn = connect();
+            PreparedStatement p = conn.prepareStatement("SELECT time FROM Tasks WHERE user_id = ? and name = ?");
+            p.setInt(1, userDao.getUserId(user.getUsername()));
+            p.setString(2, task.getName());
+            ResultSet r = p.executeQuery();
+            if (r.next()) {
+                result = r.getInt("time");
+            } 
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return result;
+    }
+
+    @Override
+    public void addTimeUsed(Task task, User user, int time) throws Exception {
+        Connection conn = null;
+        try {
+            conn = connect();
+            PreparedStatement p = conn.prepareStatement("UPDATE Tasks SET time=time+? WHERE user_id=? AND name=?");
+            p.setInt(1, time);
+            p.setInt(2, userDao.getUserId(user.getUsername()));
+            p.setString(3, task.getName());
+            p.execute();
+            p.close();
+        } catch (Exception e) {
+            System.out.println("Virhe addTimeUsed: " + e.getMessage());
+        } finally {
+            conn.close();
+        }
+    }
+    @Override
+    public Task getTask(String name, User user) throws Exception {
+        Connection conn = null;
+        Task task = null;
+        try {
+            conn = connect();
+            PreparedStatement p = conn.prepareStatement("SELECT name FROM Tasks WHERE user_id=? and name=?");
+            p.setInt(1, userDao.getUserId(user.getUsername()));
+            p.setString(2, name);
+            ResultSet r = p.executeQuery();
+            if (r.next()) {
+                task = new Task(r.getString("name"));
+            }
+            p.close();
+        } catch (Exception e) {
+            System.out.println("Virhe getTask: " + e.getMessage());
+        } finally {
+            conn.close();
+        }
+        return task;
+    }
 
     
     
