@@ -8,6 +8,17 @@ import java.util.List;
 public class SqliteTaskDao implements TaskDao {
     String url;
     UserDao userDao;
+    /**
+    * Suoritusten tietokantatoiminnoista vastaava luokka.
+    */
+    
+    /**
+    * Luokan konstruktori.
+    *
+    * @param   url tietokannan "osoite"
+    * @param   userDao käyttäjään liittyvistä tietokantatoiminnoista vastaava luokka
+    * @throws SQLException   
+    */
     public SqliteTaskDao(String url, UserDao userDao) throws SQLException {
         this.url = url;
         this.userDao = userDao;
@@ -57,13 +68,13 @@ public class SqliteTaskDao implements TaskDao {
                     + "(SELECT id FROM Users WHERE username = ?)");
             p.setString(1, user.getUsername());
             ResultSet r = p.executeQuery();
-            
-            while(r.next()) {
+            while (r.next()) {
                 Task task = new Task(r.getString("name"));
                 task.addTime(r.getInt("time"));
                 tasks.add(task);
             }
             p.close();
+            r.close();
         } catch (SQLException e) {
             System.out.println("Method showTasks failed: " + e.getMessage());
         } finally {
@@ -81,11 +92,18 @@ public class SqliteTaskDao implements TaskDao {
         Connection conn = null;
         try {
             conn = DriverManager.getConnection(url);
-        } catch (SQLException e){
+        } catch (SQLException e) {
             System.out.println("Database connection failed: " + e.getMessage());
-        } 
+        }
         return conn;
     }
+    /**
+     * Palauttaa tiettyyn tehtävään käytetyn ajan.
+    *@param task tehtävä
+    * @param user kirjautunut käyttäjä
+    * @throws Exception   
+    * @return Paluttaa tiettyyn tehtävään käyteteyn ajan
+    */
     public int getTimeUsed(Task task, User user) throws Exception {
         Connection conn = null;
         int result = 0;

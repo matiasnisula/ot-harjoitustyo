@@ -6,12 +6,25 @@ import opintopaivakirjasovellus.dao.*;
 public class AppService {
     private TaskDao taskDao;
     private UserDao userDao;
-    private User loggedIn;
-    
+    private User loggedIn;   
+    /**
+    * Sovelluslogiikasta vastaava luokka.
+    */
+    /**
+    * Luokan konstruktori.
+    * @param taskDao suoritusten tallentamisesta vastaava luokka
+    * @param userDao käyttäjien tallentamisesta vastaava luokka
+    */
     public AppService(TaskDao taskDao, UserDao userDao) {
         this.taskDao = taskDao;
         this.userDao = userDao;
     }
+    /**
+    * Luo uuden suorituksen ja tallentaa sen.
+    * @param taskName suorituksen nimi
+    * @throws Exception    
+    * @return true/false riippuen onnistuiko tallennus
+    */
     public boolean createTask(String taskName) throws Exception {
         if (loggedIn == null) {
             System.out.println("Kirjaudu siään");
@@ -26,6 +39,13 @@ public class AppService {
         }
         return true;
     }
+    /**
+    * Luo uuden käyttäjän.
+    * @param name käyttäjän nimi
+    * @param username käyttäjänimi
+    * @throws Exception    
+    * @return true, jos onnistui, muuten false
+    */
     public boolean createUser(String name, String username) throws Exception {
         boolean created = false;
         if (userDao.usernameExists(username)) {
@@ -36,6 +56,12 @@ public class AppService {
         }
         return created;
     }
+    /**
+    * Kirjautuminen sisään käyttäjänimellä.
+    * @param username käyttäjänimi, jolla halutaan kirjautua
+    * @throws Exception    
+    * @return true, kirjautuminen onnistui, muuten false
+    */
     public boolean login(String username) throws Exception {
         if (loggedIn != null) {
             System.out.println("You are already logged in");
@@ -55,6 +81,11 @@ public class AppService {
         }
         return true;
     }
+    /**
+    * Näyttää kirjautuneen käyttäjän tehtävät.
+    * @throws Exception    
+    * 
+    */
     public void showTasks() throws Exception {
         if (loggedIn == null) {
             System.out.println("Log in first");
@@ -64,25 +95,36 @@ public class AppService {
             System.out.println(t.toString());
         }
     }
+    /**
+    * Lisää käyttäjän ilmoittaman ajan tehtävän kokonaisaikaan.
+    * @param taskName tehtävän nimi
+    * @param time lisättävä aika
+    * @throws Exception    
+    */
     public void addTimeUsed(String taskName, int time) throws Exception {
         if (loggedIn == null) {
             System.out.println("Log in first");
             return;
         }
         try {
-           taskDao.addTimeUsed(taskDao.getTask(taskName, loggedIn), loggedIn, time); 
-        } catch(Exception e) {
+            taskDao.addTimeUsed(taskDao.getTask(taskName, loggedIn), loggedIn, time); 
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
         
         
     }
-    
+    /**
+    * Palauttaa sisäänkirjautuneen käyttäjän.
+    * @return User
+    */
     public User getLoggedUser() {
         return this.loggedIn;
     }
+    /**
+    * Kirjautuu ulos nykyiseltä käyttäjätililtä.
+    */
     public void logOut() {
         this.loggedIn = null;
-        System.out.println("Logged out succesfully!");
     }
 }

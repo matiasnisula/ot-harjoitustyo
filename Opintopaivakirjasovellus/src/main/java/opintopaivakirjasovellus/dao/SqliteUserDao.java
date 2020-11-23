@@ -7,20 +7,30 @@ import opintopaivakirjasovellus.domain.User;
 
 public class SqliteUserDao implements UserDao {
     String url;
+    /**
+    * Käyttäjään liittyvistä tietokantatoiminnoista vastaava luokka.
+    */
     
+    /**
+    *Luokan konstruktori.
+    * @param url tietokannan "osoite"
+    * @throws SQLException  
+    */
     public SqliteUserDao(String url) throws SQLException {
         this.url = url;
         createTableIfDoesntExist();
     }
+    
     private Connection connect() throws SQLException {
         Connection conn = null;
         try {
             conn = DriverManager.getConnection(url);
-        } catch (SQLException e){
+        } catch (SQLException e) {
             System.out.println("Database connection failed: " + e.getMessage());
         } 
         return conn;
     }
+    
     private boolean createTableIfDoesntExist() throws SQLException {
         Connection conn = connect();
         boolean created = false;
@@ -53,6 +63,7 @@ public class SqliteUserDao implements UserDao {
             conn.close();
         }
     }
+    
     @Override
     public int getUserId(String username) throws SQLException {
         Connection conn = connect();
@@ -71,6 +82,11 @@ public class SqliteUserDao implements UserDao {
         }
         return id;
     }
+    /**
+    *Palauttaa listan kaikista käyttäjistä.
+    * @return palauttaa listan kaikista käyttäjistä
+    * @throws SQLException   
+    */
     public List<User> getAll() throws SQLException {
         Connection conn = connect();
         List<User> users = new ArrayList<>();
@@ -96,13 +112,14 @@ public class SqliteUserDao implements UserDao {
         try {
             PreparedStatement p = conn.prepareStatement("Select * FROM Users WHERE username=?");
             p.setString(1, username);
-            
             ResultSet r = p.executeQuery();
             if (r.next()) {
-               user = new User(r.getString("name"), r.getString("username"));
+                user = new User(r.getString("name"), r.getString("username"));
             } else {
-                System.out.println("Virhe!");
+                System.out.println("Ei löytynyt");
             }
+            p.close();
+            r.close();
         } catch (SQLException e) {
             System.out.println("Username: " + username + " doesnt exists: " + e.getMessage());
         } finally {
@@ -110,13 +127,18 @@ public class SqliteUserDao implements UserDao {
         }
         return user;
     }
+    /**
+    *kertoo löytyykö käyttäjänimi tietokannasta.
+    * @param username löytyykö tämä käyttäjänimi tietokannasta
+    * @throws SQLException  
+    * @return true/false
+    */
     public boolean usernameExists(String username) throws SQLException {
         Connection conn = connect();
         boolean found = false;
         try {
             PreparedStatement p = conn.prepareStatement("Select username FROM Users WHERE username=?");
-            p.setString(1, username);
-            
+            p.setString(1, username);           
             ResultSet r = p.executeQuery();
             if (r.next()) {
                 found = true;
