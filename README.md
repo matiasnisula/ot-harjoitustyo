@@ -14,6 +14,8 @@ Tällä hetkellä sovelluksessa on toiminnot
  
  - Lisättyjen tehtävien näyttäminen
 
+ - Tehtävään käytetyn ajan lisääminen
+
 
 Sovellusta käytetään tekstikäyttöliittymän kautta.
 
