@@ -1,4 +1,3 @@
-
 import java.sql.*;
 import opintopaivakirjasovellus.dao.*;
 import opintopaivakirjasovellus.domain.User;
@@ -34,7 +33,7 @@ public class SqliteUserDaoTest {
     public void tearDown() {
     }
     @Test
-    public void addUser() throws SQLException, Exception {
+    public void addUserToDatabaseWorks() throws SQLException, Exception {
         userDao.addUser(new User("Pekka", "pekka8"));
         assertEquals(true, userDao.usernameExists("pekka8"));
     }

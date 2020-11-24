@@ -47,6 +47,9 @@ public class AppService {
     * @return true, jos onnistui, muuten false
     */
     public boolean createUser(String name, String username) throws Exception {
+        if (loggedIn != null) {
+            return false;
+        }
         boolean created = false;
         if (userDao.usernameExists(username)) {
             System.out.println("Username already exists");
