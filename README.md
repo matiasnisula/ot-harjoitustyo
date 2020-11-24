@@ -42,3 +42,5 @@ Projektin koodin pystyy suorittamaan komennolla
 [Vaativuusmäärittely](https://github.com/matiasnisula/ot-harjoitustyo/blob/master/dokumentaatio/vaativuusmaarittely.md)
 
 [Työaikakirjanpito](https://github.com/matiasnisula/ot-harjoitustyo/blob/master/dokumentaatio/tyoaikakirjanpito.md)
+
+[Arkkitehtuurikuvaus](https://github.com/matiasnisula/ot-harjoitustyo/blob/master/dokumentaatio/arkkitehtuuri.md)
