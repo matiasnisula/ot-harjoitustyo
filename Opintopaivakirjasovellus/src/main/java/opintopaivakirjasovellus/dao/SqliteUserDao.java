@@ -5,11 +5,11 @@ import java.util.ArrayList;
 import java.util.List;
 import opintopaivakirjasovellus.domain.User;
 
-public class SqliteUserDao implements UserDao {
-    String url;
-    /**
+/**
     * Käyttäjään liittyvistä tietokantatoiminnoista vastaava luokka.
     */
+public class SqliteUserDao implements UserDao {
+    String url;
     
     /**
     *Luokan konstruktori.

@@ -42,11 +42,11 @@ public class SqliteTaskDao implements TaskDao {
     }
        
     @Override
-    public void create(Task task, String username) throws Exception {
+    public void create(Task task, User user) throws Exception {
         Connection conn = connect();
         try {
             PreparedStatement p = conn.prepareStatement("INSERT INTO Tasks(user_id,name,time) VALUES (?,?,?);");
-            p.setInt(1, userDao.getUserId(username));
+            p.setInt(1, userDao.getUserId(user.getUsername()));
             p.setString(2, task.getName());
             p.setInt(3, task.getTimeUsed());
             p.execute();
@@ -69,7 +69,7 @@ public class SqliteTaskDao implements TaskDao {
             p.setString(1, user.getUsername());
             ResultSet r = p.executeQuery();
             while (r.next()) {
-                Task task = new Task(r.getString("name"));
+                Task task = new Task(r.getString("name"), user);
                 task.addTime(r.getInt("time"));
                 tasks.add(task);
             }
@@ -150,7 +150,7 @@ public class SqliteTaskDao implements TaskDao {
             p.setString(2, name);
             ResultSet r = p.executeQuery();
             if (r.next()) {
-                task = new Task(r.getString("name"));
+                task = new Task(r.getString("name"), user);
             }
             p.close();
         } catch (Exception e) {

@@ -17,13 +17,13 @@ public interface TaskDao {
     * @param username kenen tehtäväolio
     * @throws Exception   
     */
-    void create(Task task, String username) throws Exception;
+    void create(Task task, User user) throws Exception;
     /**
     * Asettaa tehtävän tehdyksi.
     * @param name Tehtävän nimi
     * @throws Exception   
     */
-    void setDone(String name) throws Exception;
+    void setDone(String Taskname) throws Exception;
     /**
     * Paluttaa listan kirjautuneen käyttäjän kaikista tehtävistä.
     * @param user kirjautunut käyttäjä

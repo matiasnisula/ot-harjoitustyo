@@ -5,6 +5,7 @@ public class Task {
     private String name;
     private int timeUsed;
     private boolean done;
+    private User user;
     /**
     * Tehtäväluokka.
     */
@@ -13,10 +14,11 @@ public class Task {
     * Luokan konstruktori.
     * @param name luotavan tehtävän nimi
     */
-    public Task(String name) {
+    public Task(String name, User user) {
         this.name = name;
         this.timeUsed = 0;
         boolean done = false;
+        this.user = user;
     }
 
     public String getName() {

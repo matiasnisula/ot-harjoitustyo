@@ -30,9 +30,9 @@ public class AppService {
             System.out.println("Kirjaudu siään");
             return false;
         }
-        Task task = new Task(taskName);
+        Task task = new Task(taskName, loggedIn);
         try {
-            taskDao.create(task, loggedIn.getUsername());
+            taskDao.create(task, loggedIn);
         } catch (SQLException e) {
             System.out.println("Virhe AppService, metodi createCourse");
             return false;
