@@ -23,19 +23,19 @@ Sovellusta käytetään tekstikäyttöliittymän kautta.
 
 ### Testaus
 
-####Testit suoritetaan komennolla
+Testit suoritetaan komennolla
 
 > mvn test
 
-####Testikattavuusraportti luodaan komennolla
+Testikattavuusraportti luodaan komennolla
 
 > mvn jacoco:report
 
-####Checkstyle raportti saadaan generoitua komennolla
+###Checkstyle raportti saadaan generoitua komennolla
 
 > mvn jxr:jxr checkstyle:checkstyle
 
-####Suoritettavan jarin generointi
+###Suoritettavan jarin generointi
 
 Komento
 
