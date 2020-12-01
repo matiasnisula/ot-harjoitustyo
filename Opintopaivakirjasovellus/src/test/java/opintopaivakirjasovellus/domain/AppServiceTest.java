@@ -25,9 +25,7 @@ public class AppServiceTest {
     String url = "jdbc:sqlite:testi.db";
     
     public AppServiceTest() throws SQLException {
-        userDao = new SqliteUserDao(url);
-        taskDao = new SqliteTaskDao(url, userDao);
-        service = new AppService(taskDao, userDao);
+       
     }
     
     @BeforeClass
@@ -39,7 +37,10 @@ public class AppServiceTest {
     }
     
     @Before
-    public void setUp() {
+    public void setUp() throws SQLException {
+        userDao = new SqliteUserDao(url);
+        taskDao = new SqliteTaskDao(url, userDao);
+        service = new AppService(taskDao, userDao);
     }
     
     @After
@@ -53,7 +54,8 @@ public class AppServiceTest {
     }
     @Test
     public void creatingUserWorksWhenNotLoggedIn() throws Exception {
-        assertEquals(true, service.createUser("Kalle", "K"));   
+        service.createUser("Kalle", "K");  
+        assertEquals(true,userDao.usernameExists("K"));
     }
     @Test
     public void creatingTaskWorksWhenLoggedIn() throws Exception {

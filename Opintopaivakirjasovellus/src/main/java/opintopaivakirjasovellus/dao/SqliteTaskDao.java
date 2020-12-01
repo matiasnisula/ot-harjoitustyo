@@ -29,7 +29,7 @@ public class SqliteTaskDao implements TaskDao {
         boolean created = false;
         try {
             Statement s = conn.createStatement();
-            s.execute("CREATE TABLE IF NOT EXISTS Tasks (user_id INTEGER, name TEXT NOT NULL, time INTEGER);");
+            s.execute("CREATE TABLE IF NOT EXISTS Tasks (user_id INTEGER, name TEXT NOT NULL, time INTEGER, done INTEGER, date TEXT);");
             System.out.println("Table Tasks created");
             s.close();
             created = true;
@@ -45,10 +45,12 @@ public class SqliteTaskDao implements TaskDao {
     public void create(Task task, User user) throws Exception {
         Connection conn = connect();
         try {
-            PreparedStatement p = conn.prepareStatement("INSERT INTO Tasks(user_id,name,time) VALUES (?,?,?);");
+            PreparedStatement p = conn.prepareStatement("INSERT INTO Tasks(user_id,name,time,done,date) VALUES (?,?,?,?,?);");
             p.setInt(1, userDao.getUserId(user.getUsername()));
             p.setString(2, task.getName());
             p.setInt(3, task.getTimeUsed());
+            p.setInt(4, task.getDoneInt());
+            p.setString(5, task.getDate());
             p.execute();
             System.out.println("Task added to database!");
             p.close();
@@ -64,13 +66,14 @@ public class SqliteTaskDao implements TaskDao {
         Connection conn = connect();
         List<Task> tasks = new ArrayList<>();
         try {
-            PreparedStatement p = conn.prepareStatement("SELECT name, time FROM Tasks WHERE user_id = "
-                    + "(SELECT id FROM Users WHERE username = ?)");
+            PreparedStatement p = conn.prepareStatement("SELECT name, time, done, date FROM Tasks WHERE user_id = "
+                    + "(SELECT id FROM Users WHERE username = ?);");
             p.setString(1, user.getUsername());
             ResultSet r = p.executeQuery();
             while (r.next()) {
-                Task task = new Task(r.getString("name"), user);
+                Task task = new Task(r.getString("name"), user, r.getString("date"));
                 task.addTime(r.getInt("time"));
+                task.setDoneInt(r.getInt("done"));
                 tasks.add(task);
             }
             p.close();
@@ -84,8 +87,20 @@ public class SqliteTaskDao implements TaskDao {
     }
 
     @Override
-    public void setDone(String name) {
-        
+    public void setDone(Task task, User user) throws SQLException {
+        Connection conn = null;
+        try {
+            conn = connect();
+            PreparedStatement p = conn.prepareStatement("UPDATE Tasks SET done=1 WHERE user.id=? AND name=?");
+            p.setInt(1, userDao.getUserId(user.getUsername()));
+            p.setString(2, task.getName());
+            p.execute();
+            p.close();
+        } catch (Exception e) {
+            System.out.println("Virhe addTimeUsed: " + e.getMessage());
+        } finally {
+            conn.close();
+        }
     }
  
     private Connection connect() throws SQLException {
@@ -145,12 +160,14 @@ public class SqliteTaskDao implements TaskDao {
         Task task = null;
         try {
             conn = connect();
-            PreparedStatement p = conn.prepareStatement("SELECT name FROM Tasks WHERE user_id=? and name=?");
+            PreparedStatement p = conn.prepareStatement("SELECT name, time, done, date FROM Tasks WHERE user_id=? and name=?");
             p.setInt(1, userDao.getUserId(user.getUsername()));
             p.setString(2, name);
             ResultSet r = p.executeQuery();
             if (r.next()) {
-                task = new Task(r.getString("name"), user);
+                task = new Task(r.getString("name"), user, r.getString("date"));
+                task.addTime(r.getInt("time"));
+                task.setDoneInt(r.getInt("done"));
             }
             p.close();
         } catch (Exception e) {

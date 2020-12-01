@@ -23,7 +23,7 @@ public interface TaskDao {
     * @param name Tehtävän nimi
     * @throws Exception   
     */
-    void setDone(String Taskname) throws Exception;
+    void setDone(Task task, User user) throws Exception;
     /**
     * Paluttaa listan kirjautuneen käyttäjän kaikista tehtävistä.
     * @param user kirjautunut käyttäjä

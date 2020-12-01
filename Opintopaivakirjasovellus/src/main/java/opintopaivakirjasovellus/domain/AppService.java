@@ -1,6 +1,7 @@
 
 package opintopaivakirjasovellus.domain;
 import java.sql.*;
+import java.util.Calendar;
 import opintopaivakirjasovellus.dao.*;
 
 public class AppService {
@@ -27,10 +28,10 @@ public class AppService {
     */
     public boolean createTask(String taskName) throws Exception {
         if (loggedIn == null) {
-            System.out.println("Kirjaudu siään");
+            System.out.println("Kirjaudu sisään");
             return false;
         }
-        Task task = new Task(taskName, loggedIn);
+        Task task = new Task(taskName, loggedIn, getTimestamp());
         try {
             taskDao.create(task, loggedIn);
         } catch (SQLException e) {
@@ -108,6 +109,8 @@ public class AppService {
         if (loggedIn == null) {
             System.out.println("Log in first");
             return;
+        } else if(taskDao.getTask(taskName, loggedIn) == null) {
+            System.out.println("Tehtävää ei löydy");
         }
         try {
             taskDao.addTimeUsed(taskDao.getTask(taskName, loggedIn), loggedIn, time); 
@@ -129,5 +132,14 @@ public class AppService {
     */
     public void logOut() {
         this.loggedIn = null;
+    }
+    
+    private String getTimestamp() {
+        Calendar calendar = Calendar.getInstance();
+        String day = String.valueOf(calendar.get(Calendar.DATE));
+        String month = String.valueOf(calendar.get(Calendar.MONTH) + 1);
+        String year = String.valueOf(calendar.get(Calendar.YEAR));
+        
+        return day + "." + month + "." + year;   
     }
 }

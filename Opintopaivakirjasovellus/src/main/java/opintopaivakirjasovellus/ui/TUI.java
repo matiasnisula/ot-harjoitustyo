@@ -17,13 +17,13 @@ public class TUI {
         this.reader = reader;
         this.service = service;
         commands = new TreeMap<>();
-        commands.put("x", "x stop");
-        commands.put("1", "1 create user");
-        commands.put("2", "2 log in");
-        commands.put("3", "3 create task");
-        commands.put("4", "4 show your tasks");
-        commands.put("5", "5 log out");
-        commands.put("6", "6 add time used for task");
+        commands.put("x", "x Lopeta");
+        commands.put("1", "1 Luo käyttäjä");
+        commands.put("2", "2 Kirjaudu sisään");
+        commands.put("3", "3 Luo tehtävä");
+        commands.put("4", "4 Näytä tehtävät");
+        commands.put("5", "5 Kirjaudu ulos");
+        commands.put("6", "6 Päivitä tehtävään käytetty aika");
         
     }
     public void start() throws Exception {
@@ -31,7 +31,7 @@ public class TUI {
         printCommands();
         while (true) {
             System.out.println();
-            System.out.print("Command: ");
+            System.out.print("Komento: ");
             String command = reader.nextLine();
             if (!commands.keySet().contains(command)) {
                 System.out.println("Virheellinen komento.");
@@ -56,24 +56,24 @@ public class TUI {
        }
     }
     private void createUser() throws Exception {
-        System.out.print("Name: ");
+        System.out.print("Nimi: ");
         String name = reader.nextLine();
         System.out.println("");
-        System.out.print("Username: ");
+        System.out.print("Käyttäjätunnus: ");
         String username = reader.nextLine();
         service.createUser(name, username);
         
     }
     private void logIn() throws Exception {
-        System.out.println("Log in");
-        System.out.print("Username: ");
+        System.out.println("Kirjaudu sisään");
+        System.out.print("Käyttäjätunnus: ");
         String username = reader.nextLine();
         service.login(username);
         
     }
     private void createTask() throws Exception {
-        System.out.println("Create task");
-        System.out.println("Name: ");
+        System.out.println("Luo tehtävä");
+        System.out.println("Nimi: ");
         String name = reader.nextLine();
         service.createTask(name);
     }
@@ -81,16 +81,23 @@ public class TUI {
         service.showTasks();
     }
     private void addTimeUsed() throws Exception {
-        System.out.print("Select task: ");
+        System.out.print("Kirjoita tehtävän nimi: ");
         String taskName = reader.nextLine();
         System.out.println("");
-        System.out.print("Time you used: ");
-        int time = Integer.parseInt(reader.nextLine());
+        System.out.print("Käytetty aika: ");
+        String s = reader.nextLine();
+        int time = 0;
+        if (s.matches("[0-9]+")) {
+            time = Integer.parseInt(s);
+        } else {
+            System.out.println("Syötä aika oikeassa muodossa");
+            return;
+        }
         service.addTimeUsed(taskName, time);
     }
     private void logOut() {
         service.logOut();
-        System.out.println("Logged out successfully");
+        System.out.println("Uloskirjautuminen onnistui");
     }
     private void printCommands() {
         for (String s: commands.values()) {

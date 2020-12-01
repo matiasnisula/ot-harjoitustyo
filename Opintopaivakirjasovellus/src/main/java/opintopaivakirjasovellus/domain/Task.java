@@ -6,6 +6,7 @@ public class Task {
     private int timeUsed;
     private boolean done;
     private User user;
+    private String date;
     /**
     * Tehtäväluokka.
     */
@@ -14,11 +15,15 @@ public class Task {
     * Luokan konstruktori.
     * @param name luotavan tehtävän nimi
     */
-    public Task(String name, User user) {
+    public Task(String name, User user, String date) {
         this.name = name;
         this.timeUsed = 0;
-        boolean done = false;
+        this.done = false;
         this.user = user;
+        this.date = date;
+    }
+    public String getDate() {
+        return this.date;
     }
 
     public String getName() {
@@ -40,8 +45,21 @@ public class Task {
     public void setDone() {
         this.done = true;
     }
+    public void setDoneInt(int n) {
+        this.done = n == 1;
+    }
+    public boolean getDone() {
+        return this.done;
+    }
+    public int getDoneInt() {
+        if (this.done == true) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
     @Override
     public String toString() {
-        return this.name + ", Time used: " + this.timeUsed;
+        return this.name + ", Käytetty aika: " + this.timeUsed + ", Lisätty " + this.date;
     }
 }

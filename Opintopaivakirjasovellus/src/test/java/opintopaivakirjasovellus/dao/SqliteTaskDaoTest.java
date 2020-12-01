@@ -21,8 +21,7 @@ public class SqliteTaskDaoTest {
     TaskDao taskDao;
     
     public SqliteTaskDaoTest() throws SQLException {
-        userDao = new SqliteUserDao(url);
-        taskDao = new SqliteTaskDao(url, userDao);
+        
     }
     
     @BeforeClass
@@ -34,7 +33,9 @@ public class SqliteTaskDaoTest {
     }
     
     @Before
-    public void setUp() {
+    public void setUp() throws SQLException {
+        userDao = new SqliteUserDao(url);
+        taskDao = new SqliteTaskDao(url, userDao);
     }
     
     @After
@@ -45,7 +46,7 @@ public class SqliteTaskDaoTest {
     public void addingTaskToDatabaseWorks() throws Exception {
         User user = new User("Pekka", "Pekka2");
         userDao.addUser(user);
-        Task task = new Task("Kurssi", user);
+        Task task = new Task("Kurssi", user, "10.09.2020");
         taskDao.create(task, user);
         assertEquals("Kurssi", taskDao.getTask("Kurssi", user).getName());
     }
