@@ -27,18 +27,19 @@ public class AppService {
     * @return true/false riippuen onnistuiko tallennus
     */
     public boolean createTask(String taskName) throws Exception {
+        boolean created = false;
         if (loggedIn == null) {
             System.out.println("Kirjaudu sisään");
             return false;
         }
-        Task task = new Task(taskName, loggedIn, getTimestamp());
+        Task task = new Task(taskName, loggedIn, getTimestamp()); 
         try {
             taskDao.create(task, loggedIn);
+            created = true;
         } catch (SQLException e) {
             System.out.println("Virhe AppService, metodi createCourse");
-            return false;
         }
-        return true;
+        return created;
     }
     /**
     * Luo uuden käyttäjän.
@@ -109,16 +110,39 @@ public class AppService {
         if (loggedIn == null) {
             System.out.println("Log in first");
             return;
-        } else if(taskDao.getTask(taskName, loggedIn) == null) {
+        } else if (taskDao.getTask(taskName, loggedIn) == null) {
             System.out.println("Tehtävää ei löydy");
         }
         try {
             taskDao.addTimeUsed(taskDao.getTask(taskName, loggedIn), loggedIn, time); 
+            System.out.println("Tehtävään käytetty aika päivitetty");
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
         
         
+    }
+    /**
+    * Palauttaa sisäänkirjautuneen käyttäjän.
+    * @param taskName tehtävän nimi
+    * @throws Exception poikkeus
+    * @return timeUsed
+    */
+    public int getTimeUsed(String taskName) throws Exception {
+        int timeUsed = -1;
+        if (loggedIn == null) {
+            System.out.println("Log in first");
+            return 0;
+        } else if (taskDao.getTask(taskName, loggedIn) == null) {
+            System.out.println("Tehtävää ei löydy");
+        }
+        try {
+            timeUsed = taskDao.getTimeUsed(taskDao.getTask(taskName, loggedIn), loggedIn); 
+            
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return timeUsed;
     }
     /**
     * Palauttaa sisäänkirjautuneen käyttäjän.

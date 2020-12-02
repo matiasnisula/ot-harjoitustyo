@@ -14,6 +14,8 @@ public class Task {
     /**
     * Luokan konstruktori.
     * @param name luotavan tehtävän nimi
+    * @param user Käyttäjä, jolle tehtävä luodaan
+    * @param date tehtävän lisäysaika(päivämäärä)
     */
     public Task(String name, User user, String date) {
         this.name = name;
@@ -51,6 +53,10 @@ public class Task {
     public boolean getDone() {
         return this.done;
     }
+    /**
+    * Palauttaa 1 = true, 0 = false tietokantaa varten.
+    * @return 1 tai 0
+    */
     public int getDoneInt() {
         if (this.done == true) {
             return 1;

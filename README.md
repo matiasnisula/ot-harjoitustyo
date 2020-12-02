@@ -17,7 +17,12 @@ Tällä hetkellä sovelluksessa on toiminnot
  - Tehtävään käytetyn ajan lisääminen
 
 
-Sovellusta käytetään tekstikäyttöliittymän kautta.
+Sovellusta käytetään tällä hetkellä tekstikäyttöliittymän kautta. Tarkoitus toteuttaa graafinen käyttöliittymä.
+
+## Releaset
+
+[Viikko 5](https://github.com/matiasnisula/ot-harjoitustyo/releases/tag/viikko5)
+
 
 ## Komentorivitoiminnot
 

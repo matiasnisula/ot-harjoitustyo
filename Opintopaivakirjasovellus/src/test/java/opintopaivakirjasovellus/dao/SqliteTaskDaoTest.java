@@ -17,15 +17,17 @@ import opintopaivakirjasovellus.domain.User;
 
 public class SqliteTaskDaoTest {
     String url = "jdbc:sqlite:testi.db";
-    UserDao userDao;
-    TaskDao taskDao;
+    SqliteUserDao userDao;
+    SqliteTaskDao taskDao;
     
-    public SqliteTaskDaoTest() throws SQLException {
-        
+    public SqliteTaskDaoTest() throws Exception {
+        userDao = new SqliteUserDao(url);
+        taskDao = new SqliteTaskDao(url, userDao);
     }
     
     @BeforeClass
-    public static void setUpClass() {
+    public static void setUpClass() throws SQLException {
+        
     }
     
     @AfterClass
@@ -33,9 +35,11 @@ public class SqliteTaskDaoTest {
     }
     
     @Before
-    public void setUp() throws SQLException {
-        userDao = new SqliteUserDao(url);
-        taskDao = new SqliteTaskDao(url, userDao);
+    public void setUp() throws Exception {
+        userDao.emptyTables();
+        taskDao.emptyTables();
+        userDao.addUser(new User("Pekka", "Pekka1"));
+        userDao.addUser(new User("Matias", "MN"));
     }
     
     @After
@@ -44,8 +48,35 @@ public class SqliteTaskDaoTest {
 
     @Test
     public void addingTaskToDatabaseWorks() throws Exception {
-        User user = new User("Pekka", "Pekka2");
+        User user = userDao.findByUsername("Pekka1");
+        Task task = new Task("Kurssi", user, "10.09.2020");
+        taskDao.create(task, user);
+        assertEquals("Kurssi", taskDao.getTask("Kurssi", user).getName());
+    }
+    @Test
+    public void addingTimeToTaskWorks() throws Exception {
+        User user = new User("M", "N");
+        Task task = new Task("Kurssi", user, "10.09.2020");
         userDao.addUser(user);
+        taskDao.create(task, user);
+        taskDao.addTimeUsed(task, user, 4);
+        assertEquals(4, taskDao.getTimeUsed(task, user));
+        
+    }
+    @Test
+    public void getAllTasksForOneUser() throws Exception {
+        
+    }
+    @Test
+    public void savingTaskToDatabaseWorks() throws Exception {
+        User user = new User("M", "N");
+        Task task = new Task("Kurssi", user, "10.09.2020");
+        taskDao.create(task, user);
+        assertEquals("Kurssi", taskDao.getTask("Kurssi", user).getName());
+    }
+    @Test
+    public void getTaskFromDatabaseWorks() throws Exception {
+        User user = new User("M", "N");
         Task task = new Task("Kurssi", user, "10.09.2020");
         taskDao.create(task, user);
         assertEquals("Kurssi", taskDao.getTask("Kurssi", user).getName());

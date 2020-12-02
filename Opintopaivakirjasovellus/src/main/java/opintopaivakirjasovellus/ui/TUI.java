@@ -62,6 +62,7 @@ public class TUI {
         System.out.print("Käyttäjätunnus: ");
         String username = reader.nextLine();
         service.createUser(name, username);
+        System.out.println("Käyttäjätunnus luotu");
         
     }
     private void logIn() throws Exception {

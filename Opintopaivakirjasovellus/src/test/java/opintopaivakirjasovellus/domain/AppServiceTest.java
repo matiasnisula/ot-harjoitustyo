@@ -18,14 +18,16 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class AppServiceTest {
-    TaskDao taskDao;
-    UserDao userDao;
+    SqliteTaskDao taskDao;
+    SqliteUserDao userDao;
     User loggedIn;
     AppService service;
     String url = "jdbc:sqlite:testi.db";
     
     public AppServiceTest() throws SQLException {
-       
+       userDao = new SqliteUserDao(url);
+       taskDao = new SqliteTaskDao(url, userDao);
+       service = new AppService(taskDao, userDao);
     }
     
     @BeforeClass
@@ -38,9 +40,8 @@ public class AppServiceTest {
     
     @Before
     public void setUp() throws SQLException {
-        userDao = new SqliteUserDao(url);
-        taskDao = new SqliteTaskDao(url, userDao);
-        service = new AppService(taskDao, userDao);
+        userDao.emptyTables();
+        taskDao.emptyTables();
     }
     
     @After
@@ -62,6 +63,19 @@ public class AppServiceTest {
         service.createUser("Ma", "M");
         service.login("M");
         assertEquals(true, service.createTask("Testaus"));
+    }
+    @Test
+    public void creatingTaskDoesntWorkWhenNotLoggedIn() throws Exception {
+        service.createUser("Ma", "M");
+        assertEquals(false, service.createTask("Testaus"));
+    }
+    @Test
+    public void addingTimeToTaskWorks() throws Exception {
+        service.createUser("Ma", "M");
+        service.login("M");
+        service.createTask("Testaus");
+        service.addTimeUsed("Testaus", 2);
+        assertEquals(2, service.getTimeUsed("Testaus"));   
     }
     
     

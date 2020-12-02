@@ -9,7 +9,7 @@ import opintopaivakirjasovellus.domain.User;
     * Käyttäjään liittyvistä tietokantatoiminnoista vastaava luokka.
     */
 public class SqliteUserDao implements UserDao {
-    String url;
+    private String url;
     
     /**
     *Luokan konstruktori.
@@ -37,15 +37,31 @@ public class SqliteUserDao implements UserDao {
         try {
             Statement s = conn.createStatement();
             s.execute("CREATE TABLE IF NOT EXISTS Users (id INTEGER PRIMARY KEY, name TEXT, username TEXT UNIQUE);");
-            System.out.println("Table Users created");
+            //System.out.println("Table Users created");
             s.close();
             created = true;
         } catch (SQLException e) {
-            System.out.println("Creating table failed: " + e.getMessage());
+            //System.out.println("Creating table failed: " + e.getMessage());
         } finally {
             conn.close();         
         }     
         return created;
+    }
+    /**
+    * Tyhjentää taulut Users tietokannan testausta varten.
+    * @throws SQLException poikkeus
+    */
+    public void emptyTables() throws SQLException {
+        Connection conn = connect();
+        try {
+            Statement s = conn.createStatement();
+            s.execute("DELETE FROM Users;");
+            s.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            conn.close();         
+        }
     }
 
     @Override
@@ -55,7 +71,7 @@ public class SqliteUserDao implements UserDao {
             PreparedStatement p = conn.prepareStatement("INSERT INTO Users (username) VALUES(?)");
             p.setString(1, user.getUsername());
             p.execute();
-            System.out.println("Username added to database!");
+            //System.out.println("Username added to database!");
             p.close();
         } catch (SQLException e) {
             System.out.println("Adding user failed: " + e.getMessage());
@@ -76,7 +92,7 @@ public class SqliteUserDao implements UserDao {
             p.close();
             r.close();
         } catch (SQLException e) {
-            System.out.println("Getting userId failed " + e.getMessage());
+            //System.out.println("Getting userId failed " + e.getMessage());
         } finally {
             conn.close();
         }
@@ -97,6 +113,8 @@ public class SqliteUserDao implements UserDao {
                 User user = new User(r.getString("name"), r.getString("username"));
                 users.add(user);
             }
+            p.close();
+            r.close();
         } catch (SQLException e) {
             System.out.println("Virhe metodissa getAll(), SqliteUserDao" + e.getMessage());
         } finally {
@@ -143,6 +161,8 @@ public class SqliteUserDao implements UserDao {
             if (r.next()) {
                 found = true;
             }
+            p.close();
+            r.close();
         } catch (SQLException e) {
             System.out.println("Username: " + username + " doesnt exists: " + e.getMessage());
         } finally {

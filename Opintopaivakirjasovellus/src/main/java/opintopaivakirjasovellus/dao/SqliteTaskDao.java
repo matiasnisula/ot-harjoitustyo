@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SqliteTaskDao implements TaskDao {
-    String url;
-    UserDao userDao;
+    private String url;
+    private UserDao userDao;
     /**
     * Suoritusten tietokantatoiminnoista vastaava luokka.
     */
@@ -30,7 +30,7 @@ public class SqliteTaskDao implements TaskDao {
         try {
             Statement s = conn.createStatement();
             s.execute("CREATE TABLE IF NOT EXISTS Tasks (user_id INTEGER, name TEXT NOT NULL, time INTEGER, done INTEGER, date TEXT);");
-            System.out.println("Table Tasks created");
+            //System.out.println("Table Tasks created");
             s.close();
             created = true;
         } catch (SQLException e) {
@@ -39,6 +39,22 @@ public class SqliteTaskDao implements TaskDao {
             conn.close();         
         }
         return created;
+    }
+    /**
+    * Tyhjentää tietokannan taulut testausta varten.
+    * @throws SQLException poikkeus
+    */
+    public void emptyTables() throws SQLException {
+        Connection conn = connect();
+        try {
+            Statement s = conn.createStatement();
+            s.execute("DELETE FROM Tasks;");
+            s.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            conn.close();         
+        }
     }
        
     @Override
@@ -52,7 +68,7 @@ public class SqliteTaskDao implements TaskDao {
             p.setInt(4, task.getDoneInt());
             p.setString(5, task.getDate());
             p.execute();
-            System.out.println("Task added to database!");
+            //System.out.println("Task added to database!");
             p.close();
         } catch (Exception e) {
             System.out.println("Adding task failed: " + e.getMessage());
@@ -119,6 +135,7 @@ public class SqliteTaskDao implements TaskDao {
     * @throws Exception   
     * @return Paluttaa tiettyyn tehtävään käyteteyn ajan
     */
+    @Override
     public int getTimeUsed(Task task, User user) throws Exception {
         Connection conn = null;
         int result = 0;
@@ -131,8 +148,11 @@ public class SqliteTaskDao implements TaskDao {
             if (r.next()) {
                 result = r.getInt("time");
             } 
+            r.close();
         } catch (Exception e) {
             System.out.println(e.getMessage());
+        } finally {
+            conn.close();
         }
         return result;
     }
@@ -170,6 +190,7 @@ public class SqliteTaskDao implements TaskDao {
                 task.setDoneInt(r.getInt("done"));
             }
             p.close();
+            r.close();
         } catch (Exception e) {
             System.out.println("Virhe getTask: " + e.getMessage());
         } finally {

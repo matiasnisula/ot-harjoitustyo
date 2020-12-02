@@ -6,6 +6,11 @@ import opintopaivakirjasovellus.dao.*;
 
 
 public class Main {
+    /**
+    * Sovelluksen main metodi.
+    * @param args käynnistyksessä annettavat parametrit
+    * @throws Exception poikkeus
+    */
     public static void main(String[] args) throws Exception {
         Scanner reader = new Scanner(System.in);
         String url = "jdbc:sqlite:tietokanta.db";

@@ -10,9 +10,9 @@ import static org.junit.Assert.*;
 
 public class SqliteUserDaoTest {
     String url = "jdbc:sqlite:testi.db";
-    UserDao userDao;
+    SqliteUserDao userDao;
     public SqliteUserDaoTest() throws SQLException {
-        
+        userDao = new SqliteUserDao(url);
     }
     
     @BeforeClass
@@ -25,7 +25,7 @@ public class SqliteUserDaoTest {
     
     @Before
     public void setUp() throws SQLException {
-        userDao = new SqliteUserDao(url);
+        userDao.emptyTables();
     }
     
     @After

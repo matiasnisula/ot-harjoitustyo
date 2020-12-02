@@ -14,13 +14,14 @@ public interface TaskDao {
     /**
      * Lisää tehtävän tietokantaan.
     * @param task tallennettava tehtäväolio
-    * @param username kenen tehtäväolio
+    * @param user kenen tehtäväolio
     * @throws Exception   
     */
     void create(Task task, User user) throws Exception;
     /**
     * Asettaa tehtävän tehdyksi.
-    * @param name Tehtävän nimi
+    * @param task tehtävä, joka asetetaan tehdyksi
+    * @param user kenen tehtävä
     * @throws Exception   
     */
     void setDone(Task task, User user) throws Exception;
@@ -47,5 +48,14 @@ public interface TaskDao {
     * @return Task-olio
     */
     Task getTask(String taskName, User user) throws Exception;
+    
+    /**
+    * Palauttaa tiettyyn käyttäjään liittyvään tehtävään käytetyn ajan.
+    * @param task tehtävän
+    * @param user käyttäjä
+    * @throws Exception   
+    * @return käytetty aika
+    */
+    int getTimeUsed(Task task, User user) throws Exception;
     
 }
