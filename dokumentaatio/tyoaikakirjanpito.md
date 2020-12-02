@@ -6,4 +6,7 @@ päivä | aika(h) | mitä tein
 17.11 |    5    | Sovelluslogiikasta vastaava luokka, alustava tekstikäyttöliittymä sovellukselle
 23.11 |    5    | Tyylivirheitä korjattu , checkstyle otettu käyttöön, toiminnallisuus tehtävään käytetyn ajan lisäämiselle
 24.11 |    4    | Luokkakaavio lisätty, bugeja korjattu, testauksen työstämistä
-YHT   |   23    |
+31.11 |    3    | Testejä
+1.12  |    3    | Sekvenssikaavio luotu, tutustumista javafx, tietokannan tauluja hieman muuteltu
+2.12  |    3    | Testausta, releasen tekeminen, checkstyle virheiden korjaamista
+YHT   |   32    |
