@@ -68,4 +68,13 @@ public class Task {
     public String toString() {
         return this.name + ", Käytetty aika: " + this.timeUsed + ", Lisätty " + this.date;
     }
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof Task)) {
+            return false;
+        }
+        Task t = (Task) o;
+        return this.date.equals(t.date) && this.done == t.done && this.name.equals(t.name) 
+                && this.timeUsed == t.timeUsed && this.user.getUsername().equals(t.user.getUsername());
+    }
 }

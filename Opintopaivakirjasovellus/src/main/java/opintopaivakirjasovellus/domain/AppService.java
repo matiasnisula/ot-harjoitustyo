@@ -1,7 +1,9 @@
 
 package opintopaivakirjasovellus.domain;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import opintopaivakirjasovellus.dao.*;
 
 public class AppService {
@@ -87,20 +89,6 @@ public class AppService {
         return true;
     }
     /**
-    * Näyttää kirjautuneen käyttäjän tehtävät.
-    * @throws Exception    
-    * 
-    */
-    public void showTasks() throws Exception {
-        if (loggedIn == null) {
-            System.out.println("Log in first");
-            return;
-        }
-        for (Task t: taskDao.getAll(loggedIn)) {
-            System.out.println(t.toString());
-        }
-    }
-    /**
     * Lisää käyttäjän ilmoittaman ajan tehtävän kokonaisaikaan.
     * @param taskName tehtävän nimi
     * @param time lisättävä aika
@@ -111,10 +99,13 @@ public class AppService {
             System.out.println("Log in first");
             return;
         } else if (taskDao.getTask(taskName, loggedIn) == null) {
-            System.out.println("Tehtävää ei löydy");
+            return;
+        } else if (time < 0) {
+            return;
         }
         try {
-            taskDao.addTimeUsed(taskDao.getTask(taskName, loggedIn), loggedIn, time); 
+            
+            taskDao.addTimeUsed(taskDao.getTask(taskName, loggedIn), loggedIn, time, getTimestamp()); 
             System.out.println("Tehtävään käytetty aika päivitetty");
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -123,13 +114,41 @@ public class AppService {
         
     }
     /**
-    * Palauttaa sisäänkirjautuneen käyttäjän.
+    * Palauttaa sisäänkirjautuneen käyttäjän tehtävät listana.
+    * @throws Exception poikkeus
+    * @return tasks listana
+    */
+    public List<Task> getAll() throws Exception {
+        List<Task> tasks = new ArrayList<>();
+        if (loggedIn == null) {
+            return tasks;
+        }
+        try {
+            tasks = taskDao.getAll(loggedIn);
+        } catch (Exception e) {
+            
+        }
+        return tasks;
+    }
+    public Task getTask(String taskName) {
+        Task task = null;
+        try {
+            task = taskDao.getTask(taskName, loggedIn);
+        } catch (Exception e) {
+            
+        }
+        return task;
+    }
+    
+
+    /**
+    * Palauttaa käytetytyn kokonaisajan tiettyyn tehtävään.
     * @param taskName tehtävän nimi
     * @throws Exception poikkeus
     * @return timeUsed
     */
-    public int getTimeUsed(String taskName) throws Exception {
-        int timeUsed = -1;
+    public int getTimeUsedOneTask(String taskName) throws Exception {
+        int timeUsed = 0;
         if (loggedIn == null) {
             System.out.println("Log in first");
             return 0;
@@ -137,13 +156,49 @@ public class AppService {
             System.out.println("Tehtävää ei löydy");
         }
         try {
-            timeUsed = taskDao.getTimeUsed(taskDao.getTask(taskName, loggedIn), loggedIn); 
+            timeUsed = taskDao.getTimeUsedOneTask(taskDao.getTask(taskName, loggedIn), loggedIn); 
             
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
         return timeUsed;
     }
+    public int getTimeUsedAllTasks() throws Exception{
+        int result = 0;
+        if (loggedIn == null) {
+            return -1;
+        }
+        try {
+            result = taskDao.getTimeUsedAllTasks(loggedIn);
+        } catch  (Exception e) {
+            
+        }
+        return result;
+        
+    }
+    public void deleteTask(String taskName) throws Exception {
+        if (loggedIn == null) {
+            return;
+        }
+        try {
+            taskDao.deleteTask(taskName, loggedIn);
+        } catch (Exception e) {
+            
+        }
+    }
+    public List<Task> getHistoryOneTask(String taskName) throws Exception {
+        List<Task> tasks = new ArrayList<>();
+        if (loggedIn == null) {
+            return tasks;
+        }
+        try {
+            tasks = taskDao.getHistoryOneTask(taskName, loggedIn);
+        } catch (Exception e) {
+            
+        }
+        return tasks;
+    }
+    
     /**
     * Palauttaa sisäänkirjautuneen käyttäjän.
     * @return User

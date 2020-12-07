@@ -39,7 +39,7 @@ public interface TaskDao {
     * @param time käytetty aika, joka lisätään kokonaisaikaan
     * @throws Exception   
     */
-    void addTimeUsed(Task task, User user, int time) throws Exception;
+    void addTimeUsed(Task task, User user, int time, String date) throws Exception;
     /**
     * Palauttaa tiettyyn käyttäjään liittyvän tehtäväolion.
     * @param taskName tehtävän nimi
@@ -56,6 +56,13 @@ public interface TaskDao {
     * @throws Exception   
     * @return käytetty aika
     */
-    int getTimeUsed(Task task, User user) throws Exception;
+    int getTimeUsedOneTask(Task task, User user) throws Exception;
+    
+    int getTimeUsedAllTasks(User user) throws Exception;
+    
+    List<Task> getHistoryOneTask(String taskName, User user) throws Exception;
+    
+    void deleteTask(String taskName, User user) throws Exception;
+    
     
 }

@@ -75,7 +75,17 @@ public class AppServiceTest {
         service.login("M");
         service.createTask("Testaus");
         service.addTimeUsed("Testaus", 2);
-        assertEquals(2, service.getTimeUsed("Testaus"));   
+        assertEquals(2, service.getTimeUsedOneTask("Testaus"));   
+    }
+    @Test
+    public void getTimeUsedAllTasksWorks() throws Exception {
+        service.createUser("Ma", "M");
+        service.login("M");
+        service.createTask("Testaus");
+        service.addTimeUsed("Testaus", 2);
+        service.createTask("Ohjelmointi");
+        service.addTimeUsed("Ohjelmointi", 6);
+        assertEquals(8, service.getTimeUsedAllTasks());
     }
     
     

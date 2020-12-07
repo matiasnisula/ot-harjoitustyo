@@ -46,8 +46,6 @@ public class TUI {
                 logIn();
             } else if (command.equals("3")) {
                 createTask();
-            } else if (command.equals("4")) {
-                showTasks();
             } else if (command.equals("5")) {
                 logOut();
             } else if (command.equals("6")) {
@@ -78,9 +76,7 @@ public class TUI {
         String name = reader.nextLine();
         service.createTask(name);
     }
-    private void showTasks() throws Exception{
-        service.showTasks();
-    }
+    
     private void addTimeUsed() throws Exception {
         System.out.print("Kirjoita tehtävän nimi: ");
         String taskName = reader.nextLine();

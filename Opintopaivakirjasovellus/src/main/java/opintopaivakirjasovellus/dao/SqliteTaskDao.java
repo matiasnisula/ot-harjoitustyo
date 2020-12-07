@@ -23,6 +23,7 @@ public class SqliteTaskDao implements TaskDao {
         this.url = url;
         this.userDao = userDao;
         createTableIfDoesntExist();
+        createTableHistoryIfDoesntExist();
     }
     private boolean createTableIfDoesntExist() throws SQLException {
         Connection conn = connect();
@@ -40,6 +41,39 @@ public class SqliteTaskDao implements TaskDao {
         }
         return created;
     }
+    private boolean createTableHistoryIfDoesntExist() throws SQLException {
+        Connection conn = connect();
+        boolean created = false;
+        try {
+            Statement s = conn.createStatement();
+            s.execute("CREATE TABLE IF NOT EXISTS History (user_id INTEGER, name TEXT NOT NULL, time INTEGER, date TEXT);");
+            s.close();
+            created = true;
+        } catch (SQLException e) {
+            System.out.println("Creating table failed: " + e.getMessage());
+        } finally {
+            conn.close();         
+        }
+        return created;
+    }
+    
+    private void addTaskToTableHistory(Task task, User user, int time, String date) throws Exception {
+        Connection conn = connect();
+        try {
+            PreparedStatement p = conn.prepareStatement("INSERT INTO History(user_id,name,time,date) VALUES (?,?,?,?);");
+            p.setInt(1, userDao.getUserId(user.getUsername()));
+            p.setString(2, task.getName());
+            p.setInt(3, time);
+            p.setString(4, date);
+            p.execute();
+            p.close();
+        } catch (Exception e) {
+            System.out.println("Adding task failed: " + e.getMessage());
+        } finally {
+            conn.close();
+        }
+    }
+    
     /**
     * Tyhjentää tietokannan taulut testausta varten.
     * @throws SQLException poikkeus
@@ -136,7 +170,7 @@ public class SqliteTaskDao implements TaskDao {
     * @return Paluttaa tiettyyn tehtävään käyteteyn ajan
     */
     @Override
-    public int getTimeUsed(Task task, User user) throws Exception {
+    public int getTimeUsedOneTask(Task task, User user) throws Exception {
         Connection conn = null;
         int result = 0;
         try {
@@ -145,8 +179,28 @@ public class SqliteTaskDao implements TaskDao {
             p.setInt(1, userDao.getUserId(user.getUsername()));
             p.setString(2, task.getName());
             ResultSet r = p.executeQuery();
-            if (r.next()) {
-                result = r.getInt("time");
+            while (r.next()) {
+                result += r.getInt("time");
+            } 
+            r.close();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            conn.close();
+        }
+        return result;
+    }
+    @Override
+    public int getTimeUsedAllTasks(User user) throws Exception {
+        Connection conn = null;
+        int result = 0;
+        try {
+            conn = connect();
+            PreparedStatement p = conn.prepareStatement("SELECT time FROM Tasks WHERE user_id = ?");
+            p.setInt(1, userDao.getUserId(user.getUsername()));
+            ResultSet r = p.executeQuery();
+            while (r.next()) {
+                result += r.getInt("time");
             } 
             r.close();
         } catch (Exception e) {
@@ -158,10 +212,11 @@ public class SqliteTaskDao implements TaskDao {
     }
 
     @Override
-    public void addTimeUsed(Task task, User user, int time) throws Exception {
+    public void addTimeUsed(Task task, User user, int time, String date) throws Exception {
         Connection conn = null;
         try {
             conn = connect();
+            addTaskToTableHistory(task, user, time, date);
             PreparedStatement p = conn.prepareStatement("UPDATE Tasks SET time=time+? WHERE user_id=? AND name=?");
             p.setInt(1, time);
             p.setInt(2, userDao.getUserId(user.getUsername()));
@@ -199,6 +254,48 @@ public class SqliteTaskDao implements TaskDao {
         return task;
     }
 
+    @Override
+    public List<Task> getHistoryOneTask(String taskName, User user) throws Exception {
+       Connection conn = null;
+        List<Task> tasks = new ArrayList<>();
+        try {
+            conn = connect();
+            PreparedStatement p = conn.prepareStatement("SELECT name, time, date FROM History WHERE user_id=? and name=?;");
+            p.setInt(1, userDao.getUserId(user.getUsername()));
+            p.setString(2, taskName);
+            ResultSet r = p.executeQuery();
+            while (r.next()) {
+                Task task = new Task(r.getString("name"), user, r.getString("date"));
+                task.addTime(r.getInt("time"));
+                tasks.add(task);
+            }
+            p.close();
+            r.close();
+        } catch (SQLException e) {
+            System.out.println("Method getHistory failed: " + e.getMessage());
+        } finally {
+            conn.close();
+        }
+        return tasks;
+    }
     
-    
+
+    @Override
+    public void deleteTask(String taskName, User user) throws Exception {
+        Connection conn = null;
+        try {
+            conn = connect();
+            PreparedStatement p = conn.prepareStatement("DELETE FROM Tasks WHERE name=? and user_id=?");
+            p.setString(1, taskName);
+            p.setInt(2, userDao.getUserId(user.getUsername()));
+            p.execute();
+            p.close();
+        } catch (Exception e) {
+           
+        } finally {
+            conn.close();
+        }
+    }
+
+      
 }
