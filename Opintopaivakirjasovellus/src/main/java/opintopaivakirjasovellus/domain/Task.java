@@ -8,7 +8,7 @@ public class Task {
     private User user;
     private String date;
     /**
-    * Tehtäväluokka.
+    * Yksittäistä tehtävää kuvaava luokka.
     */
     
     /**

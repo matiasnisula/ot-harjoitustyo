@@ -6,7 +6,7 @@ public class User {
     private String username;
     
     /**
-    * Käyttäjäluokka.
+    * Järjestelmän käyttäjää edustava luokka.
     */
     
     /**

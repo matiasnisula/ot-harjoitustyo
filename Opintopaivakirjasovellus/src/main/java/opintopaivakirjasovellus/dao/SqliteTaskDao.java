@@ -25,6 +25,10 @@ public class SqliteTaskDao implements TaskDao {
         createTableIfDoesntExist();
         createTableHistoryIfDoesntExist();
     }
+    /**
+    * Luo tietokantaan taulun Tasks, johon tallennetaan käyttäjän tehtävät.
+    * @throws SQLException
+    */
     private boolean createTableIfDoesntExist() throws SQLException {
         Connection conn = connect();
         boolean created = false;
@@ -41,6 +45,10 @@ public class SqliteTaskDao implements TaskDao {
         }
         return created;
     }
+    /**
+    * Luo tietokantaan taulun History, johon tallettuu tehtävien suorituksia.
+    * @throws SQLException
+    */
     private boolean createTableHistoryIfDoesntExist() throws SQLException {
         Connection conn = connect();
         boolean created = false;
@@ -90,7 +98,13 @@ public class SqliteTaskDao implements TaskDao {
             conn.close();         
         }
     }
-       
+    /**
+    * Lisää tehtävän tietokantaan.
+    * 
+    * @param task
+    * @param user
+    * @throws Exception poikkeus
+    */
     @Override
     public void create(Task task, User user) throws Exception {
         Connection conn = connect();
@@ -110,7 +124,11 @@ public class SqliteTaskDao implements TaskDao {
             conn.close();
         }
     }
-    
+    /**
+    * Palauttaa tietyn käyttäjän kaikki tehtävät listana.
+    * @param user
+    * throws SQLException poikkeus
+    */
     @Override
     public List<Task> getAll(User user) throws SQLException {
         Connection conn = connect();
@@ -135,7 +153,12 @@ public class SqliteTaskDao implements TaskDao {
         }
         return tasks;
     }
-
+    /**
+    * Asettaa tehtään tehdyksi.
+    * @param task
+    * @param user
+    * @throws SQLException poikkeus
+    */
     @Override
     public void setDone(Task task, User user) throws SQLException {
         Connection conn = null;
@@ -152,7 +175,10 @@ public class SqliteTaskDao implements TaskDao {
             conn.close();
         }
     }
- 
+    /**
+    * Muodostaa yhteyden tietokantaan.
+    * @throws SQLException
+    */
     private Connection connect() throws SQLException {
         Connection conn = null;
         try {
@@ -190,6 +216,12 @@ public class SqliteTaskDao implements TaskDao {
         }
         return result;
     }
+    /**
+    * Yhden käyttäjän kaikkiin tehtäviin käytetty aika yhteensä.
+    * @param user
+    * @throws Exception
+    * @return käytetty aika yhteensä
+    */
     @Override
     public int getTimeUsedAllTasks(User user) throws Exception {
         Connection conn = null;
@@ -210,7 +242,14 @@ public class SqliteTaskDao implements TaskDao {
         }
         return result;
     }
-
+    /**
+    * Lisää käytettyä aikaa tiettyyn tehtävään. Lisää samalla yhden suorituksen tietokannan tauluun History.
+    * @param task
+    * @param user
+    * @param time
+    * @param date
+    * @throws Exception
+    */
     @Override
     public void addTimeUsed(Task task, User user, int time, String date) throws Exception {
         Connection conn = null;
@@ -229,6 +268,13 @@ public class SqliteTaskDao implements TaskDao {
             conn.close();
         }
     }
+    /**
+    * Palauttaa tehtäväolion.
+    * @param name
+    * @param user
+    * @throws Exception
+    * @return Tehtäväolio
+    */
     @Override
     public Task getTask(String name, User user) throws Exception {
         Connection conn = null;
@@ -253,10 +299,16 @@ public class SqliteTaskDao implements TaskDao {
         }
         return task;
     }
-
+    /**
+    * Palauttaa listana tiettyyn tehtävään liittyvät suoritukset.
+    * @param taskName
+    * @param user
+    * @throws Exception
+    * @return lista tehtäväolioista
+    */
     @Override
     public List<Task> getHistoryOneTask(String taskName, User user) throws Exception {
-       Connection conn = null;
+        Connection conn = null;
         List<Task> tasks = new ArrayList<>();
         try {
             conn = connect();
@@ -279,7 +331,12 @@ public class SqliteTaskDao implements TaskDao {
         return tasks;
     }
     
-
+    /**
+    * Poistaa tehtävän tietokannasta.
+    * @param taskName
+    * @param user
+    * @throws Exception
+    */
     @Override
     public void deleteTask(String taskName, User user) throws Exception {
         Connection conn = null;

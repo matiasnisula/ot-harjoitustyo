@@ -130,7 +130,13 @@ public class AppService {
         }
         return tasks;
     }
-    public Task getTask(String taskName) {
+    /**
+    * Palauttaa tehtäväolion.
+    * @param taskName tehtävän nimi
+    * @throws Exception poikkeus
+    * @return tehtäväolio
+    */
+    public Task getTask(String taskName) throws Exception {
         Task task = null;
         try {
             task = taskDao.getTask(taskName, loggedIn);
@@ -163,7 +169,12 @@ public class AppService {
         }
         return timeUsed;
     }
-    public int getTimeUsedAllTasks() throws Exception{
+    /**
+    *Palauttaa sisäänkirjautuneen käyttäjän kaikkiin tehtäviin käyttämän ajan.
+    * @throws Exception poikkeus
+    * @return aika yhteensä
+    */
+    public int getTimeUsedAllTasks() throws Exception {
         int result = 0;
         if (loggedIn == null) {
             return -1;
@@ -176,6 +187,11 @@ public class AppService {
         return result;
         
     }
+    /**
+    *Poistaa tehtävän.
+    * @param taskName tehtävän nimi
+    * @throws Exception poikkeus
+    */
     public void deleteTask(String taskName) throws Exception {
         if (loggedIn == null) {
             return;
@@ -186,6 +202,12 @@ public class AppService {
             
         }
     }
+    /**
+    *Palauttaa yhden tehtävän suoritukset listana.
+    * @param taskName tehtävän nimi
+    * @throws Exception poikkeus
+    * @return lista tehtäväolioita
+    */
     public List<Task> getHistoryOneTask(String taskName) throws Exception {
         List<Task> tasks = new ArrayList<>();
         if (loggedIn == null) {
@@ -201,7 +223,7 @@ public class AppService {
     
     /**
     * Palauttaa sisäänkirjautuneen käyttäjän.
-    * @return User
+    * @return sisäänkirjautunut käyttäjä
     */
     public User getLoggedUser() {
         return this.loggedIn;
@@ -212,7 +234,10 @@ public class AppService {
     public void logOut() {
         this.loggedIn = null;
     }
-    
+    /**
+    *Palauttaa tämänhetkisen päivämäärän merkkijonona, joka liitetään jokaiseen tehtäväolioon.
+    * @return päivämäärä merkkijonona
+    */
     private String getTimestamp() {
         Calendar calendar = Calendar.getInstance();
         String day = String.valueOf(calendar.get(Calendar.DATE));

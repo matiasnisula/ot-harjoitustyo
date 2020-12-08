@@ -20,7 +20,11 @@ public class SqliteUserDao implements UserDao {
         this.url = url;
         createTableIfDoesntExist();
     }
-    
+    /**
+    *Paluttaa yhteyden tietokantaan.
+    * @throws SQLException
+    * @return yhteys
+    */
     private Connection connect() throws SQLException {
         Connection conn = null;
         try {
@@ -30,7 +34,11 @@ public class SqliteUserDao implements UserDao {
         } 
         return conn;
     }
-    
+    /**
+    * Luo tietokantaan taulun Users, johon tallennetaan käyttäjät.
+    * @throws Exception
+    * @return true tai false riippuen onnistuiko luonti vai ei.
+    */
     private boolean createTableIfDoesntExist() throws SQLException {
         Connection conn = connect();
         boolean created = false;
@@ -63,7 +71,11 @@ public class SqliteUserDao implements UserDao {
             conn.close();         
         }
     }
-
+    /**
+    * Lisää käyttäjän tietokantaan.
+    * @param user
+    * @throws SQLException
+    */
     @Override
     public void addUser(User user) throws SQLException {
         Connection conn = connect();
@@ -79,7 +91,12 @@ public class SqliteUserDao implements UserDao {
             conn.close();
         }
     }
-    
+    /**
+    * Palauttaa tietokannan taulussa Users pääavaimen id käyttäjänimen perusteella.
+    * @param username
+    * @throws SQLexception
+    * @return käyttäjän id
+    */
     @Override
     public int getUserId(String username) throws SQLException {
         Connection conn = connect();
@@ -122,12 +139,18 @@ public class SqliteUserDao implements UserDao {
         }
         return users;
     }
-
+    /**
+    * Etsii tietokannasta käyttäjän, ja palauttaa sen käyttäjäoliona.
+    * @param username
+    * @throws SQLException
+    * @return käyttäjäolio
+    */
     @Override
     public User findByUsername(String username) throws SQLException {
-        Connection conn = connect();
+        Connection conn = null;
         User user = null;
         try {
+            conn = connect();
             PreparedStatement p = conn.prepareStatement("Select * FROM Users WHERE username=?");
             p.setString(1, username);
             ResultSet r = p.executeQuery();
@@ -146,7 +169,7 @@ public class SqliteUserDao implements UserDao {
         return user;
     }
     /**
-    *kertoo löytyykö käyttäjänimi tietokannasta.
+    * Kertoo löytyykö käyttäjänimi tietokannasta.
     * @param username löytyykö tämä käyttäjänimi tietokannasta
     * @throws SQLException  
     * @return true/false

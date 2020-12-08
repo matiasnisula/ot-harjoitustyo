@@ -9,4 +9,6 @@ päivä | aika(h) | mitä tein
 31.11 |    3    | Testejä
 1.12  |    3    | Sekvenssikaavio luotu, tutustumista javafx, tietokannan tauluja hieman muuteltu
 2.12  |    3    | Testausta, releasen tekeminen, checkstyle virheiden korjaamista
-YHT   |   32    |
+5.12  |    7    | javaFX tutustumista, sisäänkirjautumisnäkymä ja uuden käyttäjän luomiseen käytettävä näkymä luotu
+6.12  |    7    | GUI tekemistä, sovellukseen lisätty toimintoja
+YHT   |   46    |

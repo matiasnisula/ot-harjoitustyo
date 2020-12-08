@@ -6,4 +6,8 @@
 
 <suppressions>
     <suppress files="opintopaivakirjasovellus.ui.TUI.java" checks="[a-zA-Z0-9]*"/>
+    <suppress files="opintopaivakirjasovellus.ui.CreateUserView.java" checks="[a-zA-Z0-9]*"/>
+    <suppress files="opintopaivakirjasovellus.ui.LogInView.java" checks="[a-zA-Z0-9]*"/>
+    <suppress files="opintopaivakirjasovellus.ui.MainView.java" checks="[a-zA-Z0-9]*"/>
+    <suppress files="opintopaivakirjasovellus.ui.OpintopaivakirjasovellusGUI.java" checks="[a-zA-Z0-9]*"/>
 </suppressions>
