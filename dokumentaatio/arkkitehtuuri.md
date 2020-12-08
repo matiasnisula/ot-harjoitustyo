@@ -17,7 +17,7 @@ tiedon tallettamisesta vastaavat luokat.
 ### Tietojen pysyväistallennus
 
 Sovellus tallettaa tietoa **SQLite-tietokantaan**. Tiedon tallennus on toteutettu pakkauksessa opintopaivakirjasovellus.dao, ja siellä tallennuksesta vastaavat 
-SqliteTaskDao sekä SqliteUserDao. Luokat toteuttavat rajapinnat TaskDao sekä UserDao. Ne noudattavat **Data Access Object** -suunnittelumallia.
+luokat SqliteTaskDao sekä SqliteUserDao. Luokat toteuttavat rajapinnat TaskDao sekä UserDao. Ne noudattavat **Data Access Object** -suunnittelumallia.
 TaskDao tarvitsee tietoa käyttäjistä, joten sillä on muuttujana UserDao-olio.
 
 **Tietokanta**
