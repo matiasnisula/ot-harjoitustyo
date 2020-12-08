@@ -22,11 +22,14 @@ TaskDao tarvitsee tietoa käyttäjistä, joten sillä on muuttujana UserDao-olio
 
 **Tietokanta**
 
-Tietokantaan luodaan kolme taulua; Tasks, Users, ja History. Users-tauluun tallennetaan tietoa käyttäjistä. Se käyttää SQLiten tarjoamaa automaattista
-juoksevaa numerointia. Tasks-tauluun tallennetaan tehtäväolioihin liittyvää tietoa. 
+Tietokantaan luodaan kolme taulua; Tasks, Users, ja History. **Users-tauluun** tallennetaan tietoa käyttäjistä. Se käyttää SQLiten tarjoamaa automaattista
+juoksevaa numerointia. **Tasks-tauluun** tallennetaan tehtäväolioihin liittyvää tietoa. 
 Tehtävä liittyy aina yhteen käyttäjään, ja käyttäjällä voi olla useita tehtäviä. Tehtävällä on nimi, siihen käyttty aika, tieto siitä,
 onko se tehty vai ei, sekä lisäysaika.
 Sarakkeeseen done tallennetaan totuusarvo kokonaislukuna (false=0, true=1), koska SQLite ei mahdollista totuusarvojen tallennusta. 
+**History-tauluun** talletetaan jokainen käyttäjän tekemä "suoritus" johonkin tehtävään. Täten käyttäjä pystyy tarkastelemaan tiettyyn tehtävään tehtyjä
+suorituksia. Suoritukseen liittyy tehtävän nimi, yhden suorituksen kesto, sekä päivämäärä, milloin suoritus on tehty.
+
 
 ![Tietokantakaavio](https://github.com/matiasnisula/ot-harjoitustyo/blob/master/dokumentaatio/kuvat/tietokantakaavio.png)
 
