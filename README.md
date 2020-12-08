@@ -25,6 +25,8 @@ Sovellusta käytetään graafisen käyttöliittymän kautta.
 
 [Viikko 5](https://github.com/matiasnisula/ot-harjoitustyo/releases/tag/viikko5)
 
+[Viikko 6](https://github.com/matiasnisula/ot-harjoitustyo/releases/tag/Viikko6)
+
 
 ## Komentorivitoiminnot
 
@@ -72,3 +74,5 @@ Projektin koodin pystyy suorittamaan komennolla
 [Työaikakirjanpito](https://github.com/matiasnisula/ot-harjoitustyo/blob/master/dokumentaatio/tyoaikakirjanpito.md)
 
 [Arkkitehtuurikuvaus](https://github.com/matiasnisula/ot-harjoitustyo/blob/master/dokumentaatio/arkkitehtuuri.md)
+
+[Käyttöohje](https://github.com/matiasnisula/ot-harjoitustyo/blob/master/dokumentaatio/kayttoohje.md)
