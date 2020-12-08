@@ -2,7 +2,7 @@
 
 ## Opintopäiväkirjasovellus
 
-Sovelluksen avulla käyttäjän on mahdollista pitää kirjaa opintoihin käyttämästään ajasta.
+Sovelluksen avulla käyttäjän on mahdollista pitää kirjaa opintoihin käyttämästään ajasta. Sovellus käyttää SQLite-tietokantaa.
 
 Tällä hetkellä sovelluksessa on toiminnot                                                                                                     
 
