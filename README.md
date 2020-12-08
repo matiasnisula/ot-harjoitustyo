@@ -16,8 +16,10 @@ Tällä hetkellä sovelluksessa on toiminnot
 
  - Tehtävään käytetyn ajan lisääminen
 
+ - Tehtäväkohtaisten suoritusten tarkasteleminen
 
-Sovellusta käytetään tällä hetkellä tekstikäyttöliittymän kautta. Tarkoitus toteuttaa graafinen käyttöliittymä.
+
+Sovellusta käytetään graafisen käyttöliittymän kautta.
 
 ## Releaset
 

@@ -11,4 +11,5 @@ päivä | aika(h) | mitä tein
 2.12  |    3    | Testausta, releasen tekeminen, checkstyle virheiden korjaamista
 5.12  |    7    | javaFX tutustumista, sisäänkirjautumisnäkymä ja uuden käyttäjän luomiseen käytettävä näkymä luotu
 6.12  |    7    | GUI tekemistä, sovellukseen lisätty toimintoja
-YHT   |   46    |
+8.12  |    4    | Javadoc lisätty, dokumentointia
+YHT   |   50    |
