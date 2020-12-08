@@ -222,7 +222,7 @@ public class SqliteTaskDao implements TaskDao {
     * @throws Exception
     * @return käytetty aika yhteensä
     */
-    @Override
+    
     public int getTimeUsedAllTasks(User user) throws Exception {
         Connection conn = null;
         int result = 0;

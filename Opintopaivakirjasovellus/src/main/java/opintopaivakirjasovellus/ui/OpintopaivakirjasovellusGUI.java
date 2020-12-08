@@ -20,6 +20,9 @@ public class OpintopaivakirjasovellusGUI extends Application {
     private CreateUserView createUserView;
     private MainView mainView;
     private ObservableList<Task> tasks;
+    private SqliteTaskDao taskDao;
+    private SqliteUserDao userDao;
+    
     
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -191,8 +194,8 @@ public class OpintopaivakirjasovellusGUI extends Application {
         logInView = new LogInView();
         createUserView = new CreateUserView();
         mainView = new MainView();
-        SqliteUserDao userDao = new SqliteUserDao(url);
-        SqliteTaskDao taskDao = new SqliteTaskDao(url, userDao);
+        userDao = new SqliteUserDao(url);
+        taskDao = new SqliteTaskDao(url, userDao);
         service = new AppService(taskDao, userDao);
         tasks = FXCollections.observableArrayList();
     }

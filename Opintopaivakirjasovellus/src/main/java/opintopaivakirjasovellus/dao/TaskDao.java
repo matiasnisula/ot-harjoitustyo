@@ -59,7 +59,8 @@ public interface TaskDao {
     /**
     * Paluttaa käyttäjän kaikkiin tehtäviin käyttämän ajan.
     * @param user käyttäjä
-    * @throws Exception poikkeus
+    * @throws
+    /** Exception poikkeus
     * @return aika yhteensä
     */
     int getTimeUsedAllTasks(User user) throws Exception;

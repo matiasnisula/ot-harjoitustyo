@@ -59,6 +59,7 @@ public class AppService {
             System.out.println("Username already exists");
         } else {
             userDao.addUser(new User(name, username));
+            
             created = true;
         }
         return created;
