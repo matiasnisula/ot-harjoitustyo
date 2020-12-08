@@ -40,6 +40,12 @@ Testikattavuusraportti luodaan komennolla
 
 > mvn jxr:jxr checkstyle:checkstyle
 
+### Javadoc
+
+Komennolla
+
+> mvn javadoc:javadoc
+
 ### Suoritettavan jarin generointi
 
 Komento

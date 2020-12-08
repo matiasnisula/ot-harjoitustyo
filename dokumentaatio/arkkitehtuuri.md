@@ -1,6 +1,15 @@
-## Sovelluslogiikka
+# Arkkitehtuurikuvaus
+
+## Rakenne
+
+Koodin pakkausrakenne on seuraava:
+
+![Pakkauskaavio](https://github.com/matiasnisula/ot-harjoitustyo/blob/master/dokumentaatio/kuvat/pakkauskaavio.png)
+
+### Sovelluslogiikka
 
 ![Luokkakaavio](https://github.com/matiasnisula/ot-harjoitustyo/blob/master/dokumentaatio/kuvat/Luokkakaavio.jpg)
+
 
 
 ## Päätoiminnallisuudet
