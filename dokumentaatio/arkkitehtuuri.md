@@ -61,6 +61,8 @@ kukaan jo kirjautuneena sisään. Jos ei, luokka AppService kutsuu käyttäjiin 
 
 
 
+
+
 **Tehtävän luominen**
 
 Kun käyttäjä on kirjautuneena sisään, kirjoittanut tekstikenttään haluamansa tehtävän nimen, ja painanut nappia Lisää tehtävä:
@@ -69,10 +71,11 @@ Kun käyttäjä on kirjautuneena sisään, kirjoittanut tekstikenttään haluama
 
 [Tapahtumankäsittelijä](https://github.com/matiasnisula/ot-harjoitustyo/blob/master/Opintopaivakirjasovellus/src/main/java/opintopaivakirjasovellus/ui/OpintopaivakirjasovellusGUI.java#L113)
 kutsuu sovelluslogiikasta vastaavan luokan metodia [createTask(String taskName)](https://github.com/matiasnisula/ot-harjoitustyo/blob/master/Opintopaivakirjasovellus/src/main/java/opintopaivakirjasovellus/domain/AppService.java#L31),
-joka tarkastaa ensin, että jokin käyttäjä on kirjautuneena sisään. Sen jälkeen kutsutaan SqlteTaskDao-luokan metodia [getTask](https://github.com/matiasnisula/ot-harjoitustyo/blob/master/Opintopaivakirjasovellus/src/main/java/opintopaivakirjasovellus/dao/SqliteTaskDao.java#L279), joka palauttaa null, jos tehtävää, ei ole vielä olemassa. Muuten metodi palauttaa tehtäväolion.
-Tämän jälkeen luokka AppService kutsuu SqliteTaskDao-luokan metodia [create(Task task, User loggedIn](https://github.com/matiasnisula/ot-harjoitustyo/blob/master/Opintopaivakirjasovellus/src/main/java/opintopaivakirjasovellus/dao/SqliteTaskDao.java#L109), joka tallettaa tehtävän tietokantaan. Metodin 
+joka tarkastaa ensin, että jokin käyttäjä on kirjautuneena sisään. Sen jälkeen kutsutaan SqlteTaskDao-luokan metodia [getTask()](https://github.com/matiasnisula/ot-harjoitustyo/blob/master/Opintopaivakirjasovellus/src/main/java/opintopaivakirjasovellus/dao/SqliteTaskDao.java#L279), joka palauttaa null, jos tehtävää, ei ole vielä olemassa. Muuten metodi palauttaa tehtäväolion.
+Tämän jälkeen luokka AppService kutsuu SqliteTaskDao-luokan metodia [create(Task task, User loggedIn)](https://github.com/matiasnisula/ot-harjoitustyo/blob/master/Opintopaivakirjasovellus/src/main/java/opintopaivakirjasovellus/dao/SqliteTaskDao.java#L109), joka tallettaa tehtävän tietokantaan. Metodin 
 parametrina annettava tehtäväolio luodaan AppService-luokan metodissa createTask(String taskName). Samassa luokassa oleva metodi [getTimestamp()](https://github.com/matiasnisula/ot-harjoitustyo/blob/master/Opintopaivakirjasovellus/src/main/java/opintopaivakirjasovellus/domain/AppService.java#L246), palauttaa
-tämänhetkisen päivämäärän merkkijonona,josta tulee tehtäväolion luomispäivämäärä. 
+tämänhetkisen päivämäärän merkkijonona, josta tulee tehtäväolion luomispäivämäärä. 
+
 
 
 
