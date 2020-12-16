@@ -9,6 +9,20 @@ Koodin pakkausrakenne on seuraava:
 Pakkaus opintopaivakirjasovellus.ui sisältää JavaFX:llä toteutetun käyttöliittymän, opintopaivakirjasovellus.domain sovelluslogiikan, ja opintopaivakirjasovellus.dao
 tiedon tallettamisesta vastaavat luokat.
 
+
+### Käyttöliittymä
+
+Käyttöliittymä koostuu kolmesta erilaisesta näkymästä:
+
+    * Päänäkymä
+    * Kirjautumisnäkymä
+    * Luo uusi käyttäjä -näkymä
+
+Jokainen näkymä on rakennettu omassa luokassaan. Luokat palauttavat "layoutin" [Parent](https://docs.oracle.com/javase/8/javafx/api/javafx/scene/Parent.html)-oliona, ja käyttöliittymän rakentamisesta vastaava luokka
+ [opintopaivakirjasovellus.ui.OpintopaivakirjasovellusGUI](https://github.com/matiasnisula/ot-harjoitustyo/blob/master/Opintopaivakirjasovellus/src/main/java/opintopaivakirjasovellus/ui/OpintopaivakirjasovellusGUI.java#L19) luo niistä [Scene](https://docs.oracle.com/javase/8/javafx/api/javafx/scene/Scene.html)-olion, ja päättää mikä näkymistä on sijoitettuna sovelluksen [stageen](https://docs.oracle.com/javase/8/javafx/api/javafx/stage/Stage.html). 
+Kaikki tapahtumankäsittelijät on toteuttetu luokassa OpintopaivakirjasovellusGUI. Ne hyödyntävät sovelluslogiikasta vastaavan luokan [AppService](https://github.com/matiasnisula/ot-harjoitustyo/blob/master/Opintopaivakirjasovellus/src/main/java/opintopaivakirjasovellus/domain/AppService.java#L9) metodeja.   
+
+
 ### Sovelluslogiikka
 
 ![Luokkakaavio](https://github.com/matiasnisula/ot-harjoitustyo/blob/master/dokumentaatio/kuvat/Luokkakaavio.jpg)
