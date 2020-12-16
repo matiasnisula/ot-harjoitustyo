@@ -12,4 +12,7 @@ päivä | aika(h) | mitä tein
 5.12  |    7    | javaFX tutustumista, sisäänkirjautumisnäkymä ja uuden käyttäjän luomiseen käytettävä näkymä luotu
 6.12  |    7    | GUI tekemistä, sovellukseen lisätty toimintoja
 8.12  |    4    | Javadoc lisätty, dokumentointia
-YHT   |   50    |
+12.12 |    3    | Käyttöliittymän muokkausta
+15.12 |    4    | Käyttöliittymän muokkausta
+16.12 |    8    | Tietokantojen nimet tiedostoon config.properties, dokumentointia
+YHT   |   65    |
