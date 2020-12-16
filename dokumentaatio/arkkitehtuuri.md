@@ -14,11 +14,11 @@ tiedon tallettamisesta vastaavat luokat.
 
 Käyttöliittymä koostuu kolmesta erilaisesta näkymästä:
 
-    - Päänäkymä
+- Päänäkymä
 
-    - Kirjautumisnäkymä
+- Kirjautumisnäkymä
 
-    - Luo uusi käyttäjä -näkymä
+- Luo uusi käyttäjä -näkymä
 
 Jokainen näkymä on rakennettu omassa luokassaan. Luokat palauttavat "layoutin" [Parent](https://docs.oracle.com/javase/8/javafx/api/javafx/scene/Parent.html)-oliona, ja käyttöliittymän rakentamisesta vastaava luokka
  [opintopaivakirjasovellus.ui.OpintopaivakirjasovellusGUI](https://github.com/matiasnisula/ot-harjoitustyo/blob/master/Opintopaivakirjasovellus/src/main/java/opintopaivakirjasovellus/ui/OpintopaivakirjasovellusGUI.java#L19) luo niistä [Scene](https://docs.oracle.com/javase/8/javafx/api/javafx/scene/Scene.html)-olion, ja päättää mikä näkymistä on sijoitettuna sovelluksen [stageen](https://docs.oracle.com/javase/8/javafx/api/javafx/stage/Stage.html). 
