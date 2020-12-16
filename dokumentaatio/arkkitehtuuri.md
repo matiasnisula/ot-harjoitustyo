@@ -15,7 +15,9 @@ tiedon tallettamisesta vastaavat luokat.
 Käyttöliittymä koostuu kolmesta erilaisesta näkymästä:
 
     - Päänäkymä
+
     - Kirjautumisnäkymä
+
     - Luo uusi käyttäjä -näkymä
 
 Jokainen näkymä on rakennettu omassa luokassaan. Luokat palauttavat "layoutin" [Parent](https://docs.oracle.com/javase/8/javafx/api/javafx/scene/Parent.html)-oliona, ja käyttöliittymän rakentamisesta vastaava luokka
