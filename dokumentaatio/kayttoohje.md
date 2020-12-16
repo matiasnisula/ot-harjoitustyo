@@ -11,13 +11,26 @@ Sovellus olettaa, että käyttäjällä on asennettuna Javan versio 11.
 
 ### Uuden käyttäjän luominen ja kirjautuminen sisään
 
+**Sovelluksen kirjautumisnäkymä**
+
+![Kirjautumisnäkymä](https://github.com/matiasnisula/ot-harjoitustyo/blob/master/dokumentaatio/kuvat/logInView.png)
+
+
 1. Sovelluksen kirjautumisnäkymästä, pääsee luomaan käyttäjän painamalla nappia "Luo käyttäjä".
+
+**Käyttäjän luominen**
+
+![Käyttäjänluomisnäkymä](https://github.com/matiasnisula/ot-harjoitustyo/blob/master/dokumentaatio/kuvat/CreateNewUserView.png)
+
 2. Kirjoita oma nimi ja haluamasi käyttäjätunnus tekstikenttiin.
-3. Paina "Kirjaudu sisään".
-4. Kirjoita luomasi käyttäjätunnus ja kirjaudu sisään.
+3. Paina nappia "Luo käyttäjä"
+4. Paina "Kirjaudu sisään" --> sovelluksen kirjautumisnäkymä avautuu
+5. Kirjoita luomasi käyttäjätunnus ja kirjaudu sisään.
 
 
 ### Tehtävien lisääminen ja näyttäminen
+
+![Päänäkymä](https://github.com/matiasnisula/ot-harjoitustyo/blob/master/dokumentaatio/kuvat/MainView.png)
 
 Päänäkymässä oikealla on lista, johon päivitetään tietoja käyttäjän tehtävistä. Lista päivittyy painamalla nappia "Hae kaikki tehtävät".
 Tehtäviä lisätään kirjoittamalla tehtävän nimi painikkeen "Lisää tehtävä" alle, minkä jälkeen tehtävä lisätään painamalla "Lisää tehtävä"-nappia.
