@@ -34,6 +34,10 @@ public class AppService {
             System.out.println("Kirjaudu sisään");
             return false;
         }
+        if (taskDao.getTask(taskName, loggedIn) != null) {
+            System.out.println("Tehtävä on jo olemassa");
+            return false;
+        }
         Task task = new Task(taskName, loggedIn, getTimestamp()); 
         try {
             taskDao.create(task, loggedIn);

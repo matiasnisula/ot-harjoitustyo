@@ -19,7 +19,11 @@ public class Main {
         //AppService service = new AppService(taskDao, userDao);
         //TUI textUserInterface = new TUI(reader, service);
         //*textUserInterface.start();
-        OpintopaivakirjasovellusGUI.main(args);
+        try {
+            OpintopaivakirjasovellusGUI.main(args);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
         
     }
 }

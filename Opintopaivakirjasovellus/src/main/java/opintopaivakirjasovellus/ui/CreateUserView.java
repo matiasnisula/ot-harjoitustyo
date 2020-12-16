@@ -11,6 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
 public class CreateUserView {
@@ -19,6 +20,7 @@ public class CreateUserView {
     private Button createNewUserButton;
     private TextField userTextField;
     private TextField nameTextField;
+    private Label messages;
     
     public Parent getView() {
         GridPane grid = new GridPane();
@@ -50,6 +52,11 @@ public class CreateUserView {
         createNewUserButton = new Button("Luo käyttäjä");
         createNewUserButton.setFont(new Font(fontSize));
         createNewUserButton.setStyle("-fx-background-color: #00ff00");
+        
+        messages = new Label("");
+        messages.setFont(new Font(fontSize));
+        messages.setTextFill(Color.RED);
+        grid.add(messages, 1,7);
        
         HBox hbBtn = new HBox(10);
         hbBtn.setAlignment(Pos.BOTTOM_RIGHT);
@@ -71,5 +78,8 @@ public class CreateUserView {
     }
     public TextField getNameTextField() {
         return this.nameTextField;
+    }
+    public Label getMessages() {
+        return this.messages;
     }
 }

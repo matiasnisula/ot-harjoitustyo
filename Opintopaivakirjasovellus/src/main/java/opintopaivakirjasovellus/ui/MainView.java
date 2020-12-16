@@ -1,21 +1,19 @@
 
 package opintopaivakirjasovellus.ui;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
-import javafx.scene.control.TableCell;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import javafx.util.Callback;
 import opintopaivakirjasovellus.domain.Task;
 
 public class MainView {
@@ -29,16 +27,21 @@ public class MainView {
     private TextField getTaskName;
     private TextField addTimeTaskName;
     private TextField addTimeUsedTime;
+    private TextField deleteTaskName;
     private TableView<Task> table;
     private final double fontSize = 40.0;
+    private BorderPane pane;
+    private VBox vbox;
+    private Label messages;
     
     public Parent getView() {
-        GridPane grid = new GridPane();
-        BorderPane pane = new BorderPane();
+        vbox = new VBox();
+        pane = new BorderPane();
         
-        grid.setHgap(10);
-        grid.setVgap(40);
-        grid.setPadding(new Insets(25, 25, 25, 25));
+        vbox.setPadding(new Insets(10));
+        vbox.setSpacing(30);
+        //vbox.setPadding(new Insets(25, 25, 25, 25));
+        vbox.autosize();
         
         addNewTask = new Button("Lisää tehtävä");
         addNewTask.setFont(new Font(fontSize));
@@ -55,6 +58,9 @@ public class MainView {
         logOut = new Button("Kirjaudu ulos");
         logOut.setFont(new Font(fontSize));
         
+        deleteTask = new Button("Poista tehtävä");
+        deleteTask.setFont(new Font(fontSize));
+        
         addNewTaskName = new TextField();
         addNewTaskName.setFont(new Font(fontSize));
         getTaskName = new TextField();
@@ -63,16 +69,47 @@ public class MainView {
         addTimeTaskName.setFont(new Font(fontSize));
         addTimeUsedTime = new TextField("aika");
         addTimeUsedTime.setFont(new Font(fontSize));
+        deleteTaskName = new TextField();
+        deleteTaskName.setFont(new Font(fontSize));
         
-        grid.add(addNewTask, 0, 0);
-        grid.add(addNewTaskName, 0, 1);
-        grid.add(getTask, 0, 2);
-        grid.add(getTaskName, 0, 3);
-        grid.add(getAll, 0, 4);
-        grid.add(addTimeTaskName, 0, 6);
-        grid.add(addTimeUsed, 0, 5);
-        grid.add(addTimeUsedTime, 0, 7);
-        grid.add(logOut, 0, 9);
+        messages = new Label("");
+        messages.setFont(new Font(fontSize));
+        messages.setTextFill(Color.RED);
+        
+        
+        
+        //vbox.setMargin(addNewTask, new Insets(0,0,0,8));
+        vbox.getChildren().add(addNewTask);
+        
+        //vbox.setMargin(addNewTaskName, new Insets(0,0,0,8));
+        vbox.getChildren().add(addNewTaskName);
+        
+        //vbox.setMargin(getTask, new Insets(0,0,0,8));
+        vbox.getChildren().add(getTask);
+        
+        //vbox.setMargin(getTaskName, new Insets(0,0,0,8));
+        vbox.getChildren().add(getTaskName);
+        
+        //vbox.setMargin(getAll, new Insets(0,0,0,8));
+        vbox.getChildren().add(getAll);
+        
+        //vbox.setMargin(addTimeUsed, new Insets(0,0,0,8));
+        vbox.getChildren().add(addTimeUsed);
+        
+        //vbox.setMargin(addTimeTaskName, new Insets(0,0,0,8));
+        vbox.getChildren().add(addTimeTaskName);
+        //vbox.setMargin(addTimeUsedTime, new Insets(0,0,0,8));
+        vbox.getChildren().add(addTimeUsedTime);
+        
+        //vbox.setMargin(deleteTask, new Insets(0,0,0,8));
+        vbox.getChildren().add(deleteTask);
+        //vbox.setMargin(deleteTaskName, new Insets(0,0,0,8));
+        vbox.getChildren().add(deleteTaskName);
+        
+        //vbox.setMargin(logOut, new Insets(0,0,0,8));
+        vbox.getChildren().add(logOut);
+        
+        vbox.getChildren().add(messages);
           
         table = new TableView<Task>();
         //table.setEditable(true);
@@ -90,11 +127,11 @@ public class MainView {
         dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
         
         table.getColumns().addAll(nameColumn, timeColumn, dateColumn);
-        table.setMaxSize(1800, 1200);
-        //table.autosize();
+        //table.setMaxSize(1800, 1200);
+        table.autosize();
         table.setStyle("-fx-font-weight:bold;\n" +
                        "-fx-font-size:35px;");
-        pane.setLeft(grid);
+        pane.setLeft(vbox);
         pane.setCenter(table);
         
         return pane;
@@ -114,6 +151,12 @@ public class MainView {
 
     public Button getAddTimeUsed() {
         return addTimeUsed;
+    }
+    public Button deleteTask() {
+        return deleteTask;
+    }
+    public TextField deleteTaskName() {
+        return deleteTaskName;
     }
 
     public TextField getAddNewTaskName() {
@@ -137,5 +180,8 @@ public class MainView {
     }
     public Button getLogOut() {
         return this.logOut;
+    }
+    public Label getMessages() {
+        return this.messages;
     }
 }
