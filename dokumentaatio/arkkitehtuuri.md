@@ -81,7 +81,13 @@ tämänhetkisen päivämäärän merkkijonona, josta tulee tehtäväolion luomis
 
 **Hae kaikki tehtävät**
 
+Kun käyttäjä painaa päänäkymässä nappia "Hae kaikki tehtävät", sovelluksen kontrolli etenee seuraavasti:
+
 ![Hae kaikki](https://github.com/matiasnisula/ot-harjoitustyo/blob/master/dokumentaatio/kuvat/getAllTasks.png)
+
+[Tapahtumankäsittelijä]() kutsuu sovelluslogiikasta vastaavan luokan AppService metodia [getAll()](https://github.com/matiasnisula/ot-harjoitustyo/blob/master/Opintopaivakirjasovellus/src/main/java/opintopaivakirjasovellus/domain/AppService.java#L126), joka tarkastaa ensin, että jokin käyttäjä on 
+kirjautunut sisään. Tämän jälkeen metodin sisällä kutsutaan SqliteTaskDao-luokan metodia [getAll(User loggedIn)](https://github.com/matiasnisula/ot-harjoitustyo/blob/master/Opintopaivakirjasovellus/src/main/java/opintopaivakirjasovellus/dao/SqliteTaskDao.java#L133), joka hakee sisäänkirjautuneen käyttäjän tehtävät
+tietokannasta ja palauttaa ne listana. Jos käyttäjällä ei ole yhtään tehtävää, palautetaan tyhjä lista.
 
 
 
