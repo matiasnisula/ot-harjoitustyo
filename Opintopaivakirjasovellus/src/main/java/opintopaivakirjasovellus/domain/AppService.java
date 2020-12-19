@@ -125,6 +125,11 @@ public class AppService {
         
         
     }
+    /**
+    * Merkkaa tehtävän tehdyksi.
+    * @param taskName tehtävän nimi
+    * @throws Exception poikkeus  
+    */
     public void markDoneTask(String taskName) throws Exception {
         if (loggedIn == null) {
             return;
