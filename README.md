@@ -63,7 +63,7 @@ generoi hakemistoon target suoritettavan jar-tiedoston Opintopaivakirjasovellus-
 
 Projektin koodin pystyy suorittamaan komennolla
 
-> mvn compile exec:java -Dexec.mainClass=opintopaivakirjasovellus.ui.Main
+> mvn compile exec:java -Dexec.mainClass=opintopaivakirjasovellus.Main
 
 
 

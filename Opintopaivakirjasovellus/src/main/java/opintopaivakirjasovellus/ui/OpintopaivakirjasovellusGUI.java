@@ -177,6 +177,10 @@ public class OpintopaivakirjasovellusGUI extends Application {
             @Override
             public void handle(ActionEvent event) {
                 String taskName = mainView.getMarkDoneText().getText();
+                taskName = taskName.trim();
+                if (taskName.isEmpty()) {
+                    return;
+                }
                 try {
                     mainView.getMessages().setText("");
                     service.markDoneTask(taskName);

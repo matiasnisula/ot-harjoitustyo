@@ -30,6 +30,7 @@ public class AppServiceTaskTest {
     User loggedIn;
     AppService service;
     String url;
+    boolean exception;
     
     public AppServiceTaskTest() throws SQLException {
         try (InputStream input = new FileInputStream("config.properties")) {
@@ -150,5 +151,12 @@ public class AppServiceTaskTest {
         service.createTask("Testaus");
         assertEquals(null, service.getTask("Ohjelmointi"));
     }
+    @Test
+    public void markTaskDoneWorksWhenTaskExists() throws Exception {
+        service.createTask("Testaus");
+        service.markDoneTask("Testaus");
+        assertEquals(true, service.getTask("Testaus").getDone());
+    }
+    
     
 }

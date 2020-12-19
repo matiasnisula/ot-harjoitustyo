@@ -32,7 +32,7 @@ public class MainView {
     private TextField deleteTaskName;
     private TextField markDoneText;
     private TableView<Task> table;
-    private final double fontSize = 40.0;
+    private final double fontSize = 30.0;
     private BorderPane pane;
     private VBox vbox;
     private Label messages;
