@@ -31,11 +31,9 @@ public class AppService {
     public boolean createTask(String taskName) throws Exception {
         boolean created = false;
         if (loggedIn == null) {
-            System.out.println("Kirjaudu sisään");
             return false;
         }
         if (taskDao.getTask(taskName, loggedIn) != null) {
-            System.out.println("Tehtävä on jo olemassa");
             return false;
         }
         taskName = taskName.trim();
@@ -47,7 +45,6 @@ public class AppService {
             taskDao.create(task, loggedIn);
             created = true;
         } catch (SQLException e) {
-            System.out.println("Virhe AppService, metodi createCourse");
         }
         return created;
     }
@@ -85,19 +82,15 @@ public class AppService {
     */
     public boolean login(String username) throws Exception {
         if (loggedIn != null) {
-            System.out.println("You are already logged in");
             return false;
         }
         try {
             if (userDao.usernameExists(username)) {
                 loggedIn = userDao.findByUsername(username);
-                System.out.println("You are now logged in");
             } else {
-                System.out.println("No match for username: " + username);
                 return false;
             }
         } catch (Exception e) {
-            System.out.println("Virhe kirjautuessa sisään");
             return false;
         }
         return true;
@@ -110,7 +103,6 @@ public class AppService {
     */
     public void addTimeUsed(String taskName, int time) throws Exception {
         if (loggedIn == null) {
-            System.out.println("Log in first");
             return;
         } else if (taskDao.getTask(taskName, loggedIn) == null) {
             return;
@@ -186,10 +178,9 @@ public class AppService {
     public int getTimeUsedOneTask(String taskName) throws Exception {
         int timeUsed = 0;
         if (loggedIn == null) {
-            System.out.println("Log in first");
             return 0;
         } else if (taskDao.getTask(taskName, loggedIn) == null) {
-            System.out.println("Tehtävää ei löydy");
+            return 0;
         }
         try {
             timeUsed = taskDao.getTimeUsedOneTask(taskDao.getTask(taskName, loggedIn), loggedIn); 

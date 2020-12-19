@@ -37,6 +37,7 @@
             <configuration>
                  <excludes>
                      <exclude>opintopaivakirjasovellus/ui/*</exclude>
+                     <exclude>opintopaivakirjasovellus/Main.class/</exclude>
                 </excludes>
             </configuration>
             <executions>
