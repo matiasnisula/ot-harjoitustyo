@@ -19,7 +19,7 @@ equals-metodin toimiminen. Sovelluslogiikkakerroksen testit hyödyntävät myös
 
 ### Testauskattavuus
 
-Sovelluksen testauksen rivikattavuus on 89% ja haarautumakattavuus 90%. Testaamatta jäivät muutamat tilanteet, joissa metodit heittävät poikkeuksen.
+Sovelluksen testauksen rivikattavuus on 88% ja haarautumakattavuus 84%. Testaamatta jäivät muutamat tilanteet, joissa metodit heittävät poikkeuksen.
  Testauksesta on jätetty ulkopuolelle käyttöliittymäkerros. 
 
 ![Testauskattavuus](https://github.com/matiasnisula/ot-harjoitustyo/blob/master/dokumentaatio/kuvat/testausKattavuus.png)
