@@ -125,6 +125,19 @@ public class AppService {
         
         
     }
+    public void markDoneTask(String taskName) throws Exception {
+        if (loggedIn == null) {
+            return;
+        }
+        taskName = taskName.trim();
+        try {
+            Task task = taskDao.getTask(taskName, loggedIn);
+            taskDao.setDone(task, loggedIn);
+        } catch (Exception e) {
+            
+        }
+    }
+    
     /**
     * Palauttaa sisäänkirjautuneen käyttäjän tehtävät listana.
     * @throws Exception poikkeus

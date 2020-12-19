@@ -19,15 +19,18 @@ import opintopaivakirjasovellus.domain.Task;
 public class MainView {
     private Button addNewTask;
     private Button getTask;
-    private Button getAll;
+    private Button getAllUndoneTasks;
     private Button addTimeUsed;
     private Button logOut;
     private Button deleteTask;
+    private Button markDone;
+    private Button getAllDoneTasks;
     private TextField addNewTaskName;
     private TextField getTaskName;
     private TextField addTimeTaskName;
     private TextField addTimeUsedTime;
     private TextField deleteTaskName;
+    private TextField markDoneText;
     private TableView<Task> table;
     private final double fontSize = 40.0;
     private BorderPane pane;
@@ -49,8 +52,14 @@ public class MainView {
         getTask = new Button("Hae tehtävä");
         getTask.setFont(new Font(fontSize));
         
-        getAll = new Button("Hae kaikki tehtävät");
-        getAll.setFont(new Font(fontSize));
+        markDone = new Button("Merkkaa tehdyksi");
+        markDone.setFont(new Font(fontSize));
+        
+        getAllUndoneTasks = new Button("Hae tekemättömät tehtävät");
+        getAllUndoneTasks.setFont(new Font(fontSize));
+        
+        getAllDoneTasks = new Button("Hae tehdyt tehtävät");
+        getAllDoneTasks.setFont(new Font(fontSize));
         
         addTimeUsed = new Button("Lisää aika");
         addTimeUsed.setFont(new Font(fontSize));
@@ -63,52 +72,48 @@ public class MainView {
         
         addNewTaskName = new TextField();
         addNewTaskName.setFont(new Font(fontSize));
+        
         getTaskName = new TextField();
         getTaskName.setFont(new Font(fontSize));
-        addTimeTaskName = new TextField("nimi");
+        
+        addTimeTaskName = new TextField();
         addTimeTaskName.setFont(new Font(fontSize));
-        addTimeUsedTime = new TextField("aika");
+        
+        addTimeUsedTime = new TextField();
         addTimeUsedTime.setFont(new Font(fontSize));
+        
         deleteTaskName = new TextField();
         deleteTaskName.setFont(new Font(fontSize));
+        
+        markDoneText = new TextField();
+        markDoneText.setFont(new Font(fontSize));
         
         messages = new Label("");
         messages.setFont(new Font(fontSize));
         messages.setTextFill(Color.RED);
         
+        Label nimi = new Label("Nimi:");
+        Label aika = new Label("Aika:");
+        nimi.setFont(new Font(fontSize));
+        aika.setFont(new Font(fontSize));
         
         
-        //vbox.setMargin(addNewTask, new Insets(0,0,0,8));
         vbox.getChildren().add(addNewTask);
-        
-        //vbox.setMargin(addNewTaskName, new Insets(0,0,0,8));
         vbox.getChildren().add(addNewTaskName);
-        
-        //vbox.setMargin(getTask, new Insets(0,0,0,8));
         vbox.getChildren().add(getTask);
-        
-        //vbox.setMargin(getTaskName, new Insets(0,0,0,8));
-        vbox.getChildren().add(getTaskName);
-        
-        //vbox.setMargin(getAll, new Insets(0,0,0,8));
-        vbox.getChildren().add(getAll);
-        
-        //vbox.setMargin(addTimeUsed, new Insets(0,0,0,8));
+        vbox.getChildren().add(getTaskName);      
+        vbox.getChildren().add(markDone);      
+        vbox.getChildren().add(markDoneText);
+        vbox.getChildren().add(getAllUndoneTasks);
+        vbox.getChildren().add(getAllDoneTasks);
         vbox.getChildren().add(addTimeUsed);
-        
-        //vbox.setMargin(addTimeTaskName, new Insets(0,0,0,8));
+        vbox.getChildren().add(nimi);
         vbox.getChildren().add(addTimeTaskName);
-        //vbox.setMargin(addTimeUsedTime, new Insets(0,0,0,8));
+        vbox.getChildren().add(aika);
         vbox.getChildren().add(addTimeUsedTime);
-        
-        //vbox.setMargin(deleteTask, new Insets(0,0,0,8));
         vbox.getChildren().add(deleteTask);
-        //vbox.setMargin(deleteTaskName, new Insets(0,0,0,8));
         vbox.getChildren().add(deleteTaskName);
-        
-        //vbox.setMargin(logOut, new Insets(0,0,0,8));
         vbox.getChildren().add(logOut);
-        
         vbox.getChildren().add(messages);
           
         table = new TableView<Task>();
@@ -119,7 +124,7 @@ public class MainView {
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
              
         TableColumn<Task, Integer> timeColumn = new TableColumn("Käytetty aika(h)");
-        timeColumn.setMinWidth(250);
+        timeColumn.setMinWidth(350);
         timeColumn.setCellValueFactory(new PropertyValueFactory<>("timeUsed"));
         
         TableColumn<Task, String> dateColumn = new TableColumn("Lisätty");
@@ -146,7 +151,13 @@ public class MainView {
     }
 
     public Button getAll() {
-        return getAll;
+        return getAllUndoneTasks;
+    }
+    public Button getAllDoneButton() {
+        return this.getAllDoneTasks;
+    }
+    public Button getMarkDoneButton() {
+        return this.markDone;
     }
 
     public Button getAddTimeUsed() {
@@ -173,6 +184,9 @@ public class MainView {
 
     public TextField getAddTimeUsedTime() {
         return addTimeUsedTime;
+    }
+    public TextField getMarkDoneText() {
+        return this.markDoneText;
     }
 
     public TableView<Task> getTable() {

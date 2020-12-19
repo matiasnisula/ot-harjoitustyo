@@ -263,7 +263,7 @@ public class SqliteTaskDao implements TaskDao {
         try {
             conn = connect();
             addTaskToTableHistory(task, user, time, date);
-            PreparedStatement p = conn.prepareStatement("UPDATE Tasks SET time=time+? WHERE user_id=? AND name=?");
+            PreparedStatement p = conn.prepareStatement("UPDATE Tasks SET time=time+? WHERE user_id=? AND name=? AND done=0");
             p.setInt(1, time);
             p.setInt(2, userDao.getUserId(user.getUsername()));
             p.setString(3, task.getName());
