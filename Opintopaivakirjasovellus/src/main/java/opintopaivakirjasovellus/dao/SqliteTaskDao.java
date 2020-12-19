@@ -91,6 +91,7 @@ public class SqliteTaskDao implements TaskDao {
         try {
             Statement s = conn.createStatement();
             s.execute("DELETE FROM Tasks;");
+            s.execute("DELETE FROM History;");
             s.close();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -109,6 +110,9 @@ public class SqliteTaskDao implements TaskDao {
     public void create(Task task, User user) throws Exception {
         Connection conn = connect();
         try {
+            if (getTask(task.getName(),user) != null) {
+                return;
+            }
             PreparedStatement p = conn.prepareStatement("INSERT INTO Tasks(user_id,name,time,done,date) VALUES (?,?,?,?,?);");
             p.setInt(1, userDao.getUserId(user.getUsername()));
             p.setString(2, task.getName());
@@ -160,17 +164,17 @@ public class SqliteTaskDao implements TaskDao {
     * @throws SQLException poikkeus
     */
     @Override
-    public void setDone(Task task, User user) throws SQLException {
+    public void setDone(Task task, User user) throws Exception {
         Connection conn = null;
         try {
             conn = connect();
-            PreparedStatement p = conn.prepareStatement("UPDATE Tasks SET done=1 WHERE user.id=? AND name=?");
+            PreparedStatement p = conn.prepareStatement("UPDATE Tasks SET done=1 WHERE user_id=? AND name=?");
             p.setInt(1, userDao.getUserId(user.getUsername()));
             p.setString(2, task.getName());
             p.execute();
             p.close();
         } catch (Exception e) {
-            System.out.println("Virhe addTimeUsed: " + e.getMessage());
+            System.out.println("Tehtävää ei löydy");
         } finally {
             conn.close();
         }
@@ -252,6 +256,9 @@ public class SqliteTaskDao implements TaskDao {
     */
     @Override
     public void addTimeUsed(Task task, User user, int time, String date) throws Exception {
+        if (time <= 0) {
+            return;
+        }
         Connection conn = null;
         try {
             conn = connect();
@@ -263,7 +270,7 @@ public class SqliteTaskDao implements TaskDao {
             p.execute();
             p.close();
         } catch (Exception e) {
-            System.out.println("Virhe addTimeUsed: " + e.getMessage());
+            System.out.println("Ajan lisäys epäonnistui");
         } finally {
             conn.close();
         }
@@ -348,7 +355,7 @@ public class SqliteTaskDao implements TaskDao {
             p.execute();
             p.close();
         } catch (Exception e) {
-           
+            System.out.println("Tehtävän poistaminen epäonnistui");
         } finally {
             conn.close();
         }

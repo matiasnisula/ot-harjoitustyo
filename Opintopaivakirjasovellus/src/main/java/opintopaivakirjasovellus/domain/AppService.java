@@ -38,6 +38,10 @@ public class AppService {
             System.out.println("Tehtävä on jo olemassa");
             return false;
         }
+        taskName = taskName.trim();
+        if (taskName.equals("")) {
+            return false;
+        }
         Task task = new Task(taskName, loggedIn, getTimestamp()); 
         try {
             taskDao.create(task, loggedIn);
@@ -58,9 +62,14 @@ public class AppService {
         if (loggedIn != null) {
             return false;
         }
+        name = name.trim();
+        username = username.trim();
+        if (name.equals("") || username.equals("")) {
+            return false;
+        }
         boolean created = false;
         if (userDao.usernameExists(username)) {
-            System.out.println("Username already exists");
+            return false;
         } else {
             userDao.addUser(new User(name, username));
             
@@ -105,13 +114,11 @@ public class AppService {
             return;
         } else if (taskDao.getTask(taskName, loggedIn) == null) {
             return;
-        } else if (time < 0) {
+        } else if (time <= 0) {
             return;
         }
-        try {
-            
+        try {  
             taskDao.addTimeUsed(taskDao.getTask(taskName, loggedIn), loggedIn, time, getTimestamp()); 
-            System.out.println("Tehtävään käytetty aika päivitetty");
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -182,7 +189,7 @@ public class AppService {
     public int getTimeUsedAllTasks() throws Exception {
         int result = 0;
         if (loggedIn == null) {
-            return -1;
+            return 0;
         }
         try {
             result = taskDao.getTimeUsedAllTasks(loggedIn);
@@ -218,6 +225,7 @@ public class AppService {
         if (loggedIn == null) {
             return tasks;
         }
+        taskName = taskName.trim();
         try {
             tasks = taskDao.getHistoryOneTask(taskName, loggedIn);
         } catch (Exception e) {

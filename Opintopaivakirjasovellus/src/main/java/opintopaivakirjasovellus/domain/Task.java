@@ -36,6 +36,9 @@ public class Task {
     * @param time lisättävä aika
     */
     public void addTime(int time) {
+        if (time <= 0) {
+            return;
+        }
         this.timeUsed += time;
     }
     public int getTimeUsed() {

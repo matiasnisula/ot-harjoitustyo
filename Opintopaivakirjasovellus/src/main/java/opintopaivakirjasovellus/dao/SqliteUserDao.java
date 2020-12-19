@@ -80,13 +80,13 @@ public class SqliteUserDao implements UserDao {
     public void addUser(User user) throws SQLException {
         Connection conn = connect();
         try {
-            PreparedStatement p = conn.prepareStatement("INSERT INTO Users (username) VALUES(?)");
-            p.setString(1, user.getUsername());
+            PreparedStatement p = conn.prepareStatement("INSERT INTO Users (name, username) VALUES(?,?)");
+            p.setString(1, user.getName());
+            p.setString(2, user.getUsername());
             p.execute();
-            //System.out.println("Username added to database!");
             p.close();
         } catch (SQLException e) {
-            System.out.println("Adding user failed: " + e.getMessage());
+            System.out.println("Käyttäjän lisäys epäonnistui");
         } finally {
             conn.close();
         }
@@ -116,14 +116,15 @@ public class SqliteUserDao implements UserDao {
         return id;
     }
     /**
-    *Palauttaa listan kaikista käyttäjistä.
+    *Palauttaa listan kaikista käyttäjistä, tätä tarvitaan jos sovellukseen halutaan lisätä ylläpitäjä.
     * @return palauttaa listan kaikista käyttäjistä
     * @throws SQLException   
     */
     public List<User> getAll() throws SQLException {
-        Connection conn = connect();
+        Connection conn = null;
         List<User> users = new ArrayList<>();
         try {
+            conn = connect();
             PreparedStatement p = conn.prepareStatement("Select * FROM Users");
             ResultSet r = p.executeQuery();
             while (r.next()) {

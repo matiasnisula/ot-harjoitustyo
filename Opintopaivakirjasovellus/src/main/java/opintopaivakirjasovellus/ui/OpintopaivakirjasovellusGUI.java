@@ -73,8 +73,6 @@ public class OpintopaivakirjasovellusGUI extends Application {
                     createUserView.getMessages().setText("");
                     String name = createUserView.getNameTextField().getText();
                     String username = createUserView.getUserTextField().getText();
-                    name = name.trim();
-                    username = username.trim();
                     boolean created = service.createUser(name, username);
                     if (created) {
                         createUserView.getMessages().setText("Käyttäjän luonti onnistui!");
@@ -116,10 +114,6 @@ public class OpintopaivakirjasovellusGUI extends Application {
                 try {
                     mainView.getMessages().setText("");
                     String taskName = mainView.getAddNewTaskName().getText();
-                    if (taskName.equals("")) {
-                        return;
-                    }
-                    taskName = taskName.trim();
                     boolean created = service.createTask(taskName);
                     if (!created) {
                         mainView.getMessages().setText("Tehtävän luonti epäonnistui");
@@ -140,7 +134,6 @@ public class OpintopaivakirjasovellusGUI extends Application {
                 try {
                     mainView.getMessages().setText("");
                     String taskName = mainView.getTaskName().getText();
-                    taskName = taskName.trim();
                     tasks = FXCollections.observableArrayList();
                     List<Task> list = service.getHistoryOneTask(taskName);
                     if (list.isEmpty()) {
