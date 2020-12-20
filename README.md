@@ -82,4 +82,4 @@ Projektin koodin pystyy suorittamaan komennolla
 
 [Käyttöohje](https://github.com/matiasnisula/ot-harjoitustyo/blob/master/dokumentaatio/kayttoohje.md)
 
-[Testaus](https://github.com/matiasnisula/ot-harjoitustyo/blob/master/dokumentaatio/testaus.md)
+[Testausdokumentti](https://github.com/matiasnisula/ot-harjoitustyo/blob/master/dokumentaatio/testaus.md)
