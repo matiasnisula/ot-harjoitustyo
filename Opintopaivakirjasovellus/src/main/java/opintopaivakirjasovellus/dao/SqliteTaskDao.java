@@ -106,8 +106,8 @@ public class SqliteTaskDao implements TaskDao {
     /**
     * Lisää tehtävän tietokantaan.
     * 
-    * @param task
-    * @param user
+    * @param task tehtäväolio
+    * @param user käyttäjä
     * @throws Exception poikkeus
     */
     @Override
