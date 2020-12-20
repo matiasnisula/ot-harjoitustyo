@@ -56,21 +56,24 @@ public class AppService {
     * @return true, jos onnistui, muuten false
     */
     public boolean createUser(String name, String username) throws Exception {
+        boolean created = false;
         if (loggedIn != null) {
-            return false;
+            return created;
         }
         name = name.trim();
         username = username.trim();
         if (name.equals("") || username.equals("")) {
-            return false;
+            return created;
         }
-        boolean created = false;
-        if (userDao.usernameExists(username)) {
-            return false;
-        } else {
-            userDao.saveUser(new User(name, username));
+        try {
+            if (userDao.usernameExists(username)) {
+                return created;
+            } else {
+                userDao.saveUser(new User(name, username)); 
+                created = true;
+            }
+        } catch (Exception e) {
             
-            created = true;
         }
         return created;
     }
@@ -112,11 +115,10 @@ public class AppService {
         try {  
             taskDao.addTimeUsed(taskDao.getTask(taskName, loggedIn), loggedIn, time, getTimestamp()); 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        
-        
+            
+        }        
     }
+    
     /**
     * Merkkaa tehtävän tehdyksi.
     * @param taskName tehtävän nimi
@@ -152,6 +154,7 @@ public class AppService {
         }
         return tasks;
     }
+    
     /**
     * Palauttaa tehtäväolion.
     * @param taskName tehtävän nimi
@@ -167,8 +170,6 @@ public class AppService {
         }
         return task;
     }
-    
-
     /**
     * Palauttaa käytetytyn kokonaisajan tiettyyn tehtävään.
     * @param taskName tehtävän nimi
@@ -264,8 +265,7 @@ public class AppService {
         Calendar calendar = Calendar.getInstance();
         String day = String.valueOf(calendar.get(Calendar.DATE));
         String month = String.valueOf(calendar.get(Calendar.MONTH) + 1);
-        String year = String.valueOf(calendar.get(Calendar.YEAR));
-        
+        String year = String.valueOf(calendar.get(Calendar.YEAR));     
         return day + "." + month + "." + year;   
     }
 }
