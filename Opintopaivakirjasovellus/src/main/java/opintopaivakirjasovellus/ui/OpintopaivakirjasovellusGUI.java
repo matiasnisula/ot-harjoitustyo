@@ -136,7 +136,6 @@ public class OpintopaivakirjasovellusGUI extends Application {
                         return;
                     }
                     mainView.getUserInfo().setText("Tehtävän luonti onnistui");
-                    System.out.println("Lisääminen onnistui");
                     mainView.getAddNewTaskNameText().setText("");
                 } catch (Exception e) {
                     

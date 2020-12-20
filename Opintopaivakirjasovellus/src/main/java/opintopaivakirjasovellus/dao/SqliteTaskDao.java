@@ -37,7 +37,6 @@ public class SqliteTaskDao implements TaskDao {
             conn = connect();
             Statement s = conn.createStatement();
             s.execute("CREATE TABLE IF NOT EXISTS Tasks (user_id INTEGER, name TEXT NOT NULL, time INTEGER, done INTEGER, date TEXT);");
-            //System.out.println("Table Tasks created");
             s.close();
             created = true;
         } catch (SQLException e) {
@@ -157,7 +156,7 @@ public class SqliteTaskDao implements TaskDao {
             p.close();
             r.close();
         } catch (SQLException e) {
-            System.out.println("Method showTasks failed: " + e.getMessage());
+            
         } finally {
             conn.close();
         }
@@ -194,7 +193,7 @@ public class SqliteTaskDao implements TaskDao {
         try {
             conn = DriverManager.getConnection(url);
         } catch (SQLException e) {
-            System.out.println("Database connection failed: " + e.getMessage());
+            
         }
         return conn;
     }
@@ -220,7 +219,7 @@ public class SqliteTaskDao implements TaskDao {
             } 
             r.close();
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            
         } finally {
             conn.close();
         }
@@ -247,7 +246,7 @@ public class SqliteTaskDao implements TaskDao {
             } 
             r.close();
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            
         } finally {
             conn.close();
         }
