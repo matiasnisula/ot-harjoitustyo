@@ -15,4 +15,7 @@ päivä | aika(h) | mitä tein
 12.12 |    3    | Käyttöliittymän muokkausta
 15.12 |    4    | Käyttöliittymän muokkausta
 16.12 |    8    | Tietokantojen nimet tiedostoon config.properties, dokumentointia
-YHT   |   65    |
+18.12 |    6    | Testejä, dokumentointia
+19.12 |    8    | Sovellukseen lisätty muutama toiminnallisuus
+20.12 |    8    | Dokumentoinia, koodin siistimistä
+YHT   |   87    |

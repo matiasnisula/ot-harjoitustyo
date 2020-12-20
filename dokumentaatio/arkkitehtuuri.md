@@ -27,6 +27,14 @@ Kaikki tapahtumankäsittelijät ovat toteuttetu luokassa Opintopaivakirjasovellu
 
 ### Sovelluslogiikka
 
+Sovelluksen looginen datamalli muodostuu olioista [User](https://github.com/matiasnisula/ot-harjoitustyo/blob/master/Opintopaivakirjasovellus/src/main/java/opintopaivakirjasovellus/domain/User.java#L4) ja [Task](https://github.com/matiasnisula/ot-harjoitustyo/blob/master/Opintopaivakirjasovellus/src/main/java/opintopaivakirjasovellus/domain/Task.java#L4). User kuvaa sovelluksen käyttäjiä, ja Task taas käyttäjien tehtäviä.
+Luokka [AppService](https://github.com/matiasnisula/ot-harjoitustyo/blob/master/Opintopaivakirjasovellus/src/main/java/opintopaivakirjasovellus/domain/AppService.java#L9) vastaa sovelluslogiikasta, ja sillä on käytössään pakkauksessa opintopaivakirjasovellus.dao sijaitsevat luokat SqliteTaskDao sekä SqliteUserDao. Nämä luokat vastaavat sovelluksen tietokantatoiminnoista.
+
+![Datamalli](https://github.com/matiasnisula/ot-harjoitustyo/blob/master/dokumentaatio/kuvat/kaavioSovelluslogiikka.png)
+
+
+Luokkien suhteita toisiinsa on kuvattu seuraavassa luokkakaaviossa;
+
 
 ![Luokkakaavio](https://github.com/matiasnisula/ot-harjoitustyo/blob/master/dokumentaatio/kuvat/Luokkakaavio.jpg)
 
@@ -40,7 +48,7 @@ TaskDao tarvitsee tietoa käyttäjistä, joten sillä on muuttujana UserDao-olio
 **Tietokanta**
 
 Tietokantaan luodaan kolme taulua; Tasks, Users, ja History. **Users-tauluun** tallennetaan tietoa käyttäjistä. Se käyttää SQLiten tarjoamaa automaattista
-juoksevaa numerointia. **Tasks-tauluun** tallennetaan tehtäväolioihin liittyvää tietoa. 
+juoksevaa numerointia. Lisäksi sarakkeeseen *username* on asetettu ehto **unique**, mikä varmistaa, että jokainen käyttäjätunnus on yksilöllinen. **Tasks-tauluun** tallennetaan tehtäväolioihin liittyvää tietoa. 
 Tehtävä liittyy aina yhteen käyttäjään, ja käyttäjällä voi olla useita tehtäviä. Tehtävällä on nimi, siihen käyttty aika, tieto siitä,
 onko se tehty vai ei, sekä lisäysaika.
 Sarakkeeseen done tallennetaan totuusarvo kokonaislukuna (false=0, true=1), koska SQLite ei mahdollista totuusarvojen tallennusta. 
