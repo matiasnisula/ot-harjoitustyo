@@ -3,7 +3,20 @@
 Lataa tiedosto [Opintopaivakirjasovellus.jar](https://github.com/matiasnisula/ot-harjoitustyo/releases/tag/Viikko6)
 
 Sovellus olettaa, että käyttäjällä on asennettuna Javan versio 11. Uusin release sisältää tiedoston config.properties, joka määrittelee 
-tietokantojen nimet. Se **täytyy** sijoittaa samaan kansioon suoritettavan jar-tiedoston kanssa.
+tietokantojen nimet. Se **täytyy** sijoittaa samaan kansioon suoritettavan jar-tiedoston kanssa. Sovellus luo käynnistyksen yhteydessä tietokantatiedoston 
+*tietokanta.db*. Tietokantatiedosto *testi.db* luodaan, kun testit ajetaan ensimmäisen kerran. Tiedostot luodaan samaan kansioon, missä suoritettava 
+jar-tiedosto sijaitsee.
+
+### Tiedoston config.properties sisältö
+
+**db.url=jdbc:sqlite:tietokanta.db**
+**db.testiUrl=jdbc:sqlite:testi.db**
+
+Oletuksena sovelluksen käyttämän tietokannan nimeksi tulee *tietokanta.db*, ja testausta varten tarvittavan tietokantatiedoston nimeksi *testi.db*.
+
+Jos haluat muuttaa tietokantatiedostojen nimet, avaa config.properties tekstieditorilla, ja vaihda kohtaan **tietokanta** haluamasi nimi. 
+Sovellus luo tällöin uuden **tyhjän** tietokannan uudella nimellä. 
+
 
 ### Ohjelman käynnistäminen
 
