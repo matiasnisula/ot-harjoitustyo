@@ -78,11 +78,11 @@ seuraavasti:
 
 ![Sisäänkirjautuminen](https://github.com/matiasnisula/ot-harjoitustyo/blob/master/dokumentaatio/kuvat/logIn.png)
 
-Käyttöliittymässä oleva napin [tapahtumankäsittelijä](https://github.com/matiasnisula/ot-harjoitustyo/blob/master/Opintopaivakirjasovellus/src/main/java/opintopaivakirjasovellus/ui/OpintopaivakirjasovellusGUI.java#L38) kutsuu sovelluslogiikasta vastaavan luokan AppService metodia [login](https://github.com/matiasnisula/ot-harjoitustyo/blob/master/Opintopaivakirjasovellus/src/main/java/opintopaivakirjasovellus/domain/AppService.java#L77). Alussa tarkastetaan, onko 
+Käyttöliittymässä oleva napin [tapahtumankäsittelijä](https://github.com/matiasnisula/ot-harjoitustyo/blob/master/Opintopaivakirjasovellus/src/main/java/opintopaivakirjasovellus/ui/OpintopaivakirjasovellusGUI.java#L38) kutsuu sovelluslogiikasta vastaavan luokan AppService metodia [login](https://github.com/matiasnisula/ot-harjoitustyo/blob/master/Opintopaivakirjasovellus/src/main/java/opintopaivakirjasovellus/domain/AppService.java#L83). Alussa tarkastetaan, onko 
 kukaan jo kirjautuneena sisään. Jos ei, luokka AppService kutsuu käyttäjiin liittyvän tiedon tallennuksesta vastaavan luokkan SqliteUserDao metodia
-[usernameExists](https://github.com/matiasnisula/ot-harjoitustyo/blob/master/Opintopaivakirjasovellus/src/main/java/opintopaivakirjasovellus/dao/SqliteUserDao.java#L177), joka tarkastaa löytyykö käyttäjänimi tietokannasta. Jos löytyy, metodi paluttaa true. Tämän jälkeen kutsutaan vielä metodia 
-[findByUsername](https://github.com/matiasnisula/ot-harjoitustyo/blob/master/Opintopaivakirjasovellus/src/main/java/opintopaivakirjasovellus/dao/SqliteUserDao.java#L149), ja AppService asettaa käyttäjän sisäänkirjautuneeksi. Jos kirjautuminen onnistui, näkymä vaihtuu päänäkymään ja siihen päivitetään käyttäjän tehtävät.
- muuten käyttäjälle tulostuu virheviesti "Kirjautuminen epäonnistui".
+[usernameExists](https://github.com/matiasnisula/ot-harjoitustyo/blob/master/Opintopaivakirjasovellus/src/main/java/opintopaivakirjasovellus/dao/SqliteUserDao.java#L179), joka tarkastaa löytyykö käyttäjänimi tietokannasta. Jos löytyy, metodi paluttaa true. Tämän jälkeen kutsutaan vielä metodia 
+[findByUsername](https://github.com/matiasnisula/ot-harjoitustyo/blob/master/Opintopaivakirjasovellus/src/main/java/opintopaivakirjasovellus/dao/SqliteUserDao.java#L153), ja AppService asettaa käyttäjän sisäänkirjautuneeksi. Jos kirjautuminen onnistui, näkymä vaihtuu päänäkymään ja siihen päivitetään käyttäjän tehtävät.
+ Muuten käyttäjälle tulostuu virheviesti "Kirjautuminen epäonnistui".
 
 
 
@@ -94,11 +94,11 @@ Kun käyttäjä on kirjautuneena sisään, kirjoittanut tekstikenttään haluama
 
 ![Tehtävän luominen](https://github.com/matiasnisula/ot-harjoitustyo/blob/master/dokumentaatio/kuvat/addNewTask.png)
 
-[Tapahtumankäsittelijä](https://github.com/matiasnisula/ot-harjoitustyo/blob/master/Opintopaivakirjasovellus/src/main/java/opintopaivakirjasovellus/ui/OpintopaivakirjasovellusGUI.java#L113)
+[Tapahtumankäsittelijä](https://github.com/matiasnisula/ot-harjoitustyo/blob/master/Opintopaivakirjasovellus/src/main/java/opintopaivakirjasovellus/ui/OpintopaivakirjasovellusGUI.java#L126)
 kutsuu sovelluslogiikasta vastaavan luokan metodia [createTask(String taskName)](https://github.com/matiasnisula/ot-harjoitustyo/blob/master/Opintopaivakirjasovellus/src/main/java/opintopaivakirjasovellus/domain/AppService.java#L31),
-joka tarkastaa ensin, että jokin käyttäjä on kirjautuneena sisään. Sen jälkeen kutsutaan SqlteTaskDao-luokan metodia [getTask()](https://github.com/matiasnisula/ot-harjoitustyo/blob/master/Opintopaivakirjasovellus/src/main/java/opintopaivakirjasovellus/dao/SqliteTaskDao.java#L279), joka palauttaa null, jos tehtävää, ei ole vielä olemassa. Muuten metodi palauttaa tehtäväolion.
-Tämän jälkeen luokka AppService kutsuu SqliteTaskDao-luokan metodia [create(Task task, User loggedIn)](https://github.com/matiasnisula/ot-harjoitustyo/blob/master/Opintopaivakirjasovellus/src/main/java/opintopaivakirjasovellus/dao/SqliteTaskDao.java#L109), joka tallettaa tehtävän tietokantaan. Metodin 
-parametrina annettava tehtäväolio luodaan AppService-luokan metodissa createTask(String taskName). Samassa luokassa oleva metodi [getTimestamp()](https://github.com/matiasnisula/ot-harjoitustyo/blob/master/Opintopaivakirjasovellus/src/main/java/opintopaivakirjasovellus/domain/AppService.java#L246), palauttaa
+joka tarkastaa ensin, että jokin käyttäjä on kirjautuneena sisään. Sen jälkeen kutsutaan SqlteTaskDao-luokan metodia [getTask()](https://github.com/matiasnisula/ot-harjoitustyo/blob/master/Opintopaivakirjasovellus/src/main/java/opintopaivakirjasovellus/dao/SqliteTaskDao.java#L292), joka palauttaa null, jos tehtävää, ei ole vielä olemassa. Muuten metodi palauttaa tehtäväolion.
+Tämän jälkeen luokka AppService kutsuu SqliteTaskDao-luokan metodia [create(Task task, User loggedIn)](https://github.com/matiasnisula/ot-harjoitustyo/blob/master/Opintopaivakirjasovellus/src/main/java/opintopaivakirjasovellus/dao/SqliteTaskDao.java#L114), joka tallettaa tehtävän tietokantaan. Metodin 
+parametrina annettava tehtäväolio luodaan AppService-luokan metodissa createTask(String taskName). Samassa luokassa oleva metodi [getTimestamp()](https://github.com/matiasnisula/ot-harjoitustyo/blob/master/Opintopaivakirjasovellus/src/main/java/opintopaivakirjasovellus/domain/AppService.java#L263), palauttaa
 tämänhetkisen päivämäärän merkkijonona, josta tulee tehtäväolion luomispäivämäärä. 
 
 
@@ -110,8 +110,8 @@ Kun käyttäjä painaa päänäkymässä nappia "Hae kaikki tehtävät", sovellu
 
 ![Hae kaikki](https://github.com/matiasnisula/ot-harjoitustyo/blob/master/dokumentaatio/kuvat/getAllTasks.png)
 
-[Tapahtumankäsittelijä]() kutsuu sovelluslogiikasta vastaavan luokan AppService metodia [getAll()](https://github.com/matiasnisula/ot-harjoitustyo/blob/master/Opintopaivakirjasovellus/src/main/java/opintopaivakirjasovellus/domain/AppService.java#L126), joka tarkastaa ensin, että jokin käyttäjä on 
-kirjautunut sisään. Tämän jälkeen metodin sisällä kutsutaan SqliteTaskDao-luokan metodia [getAll(User loggedIn)](https://github.com/matiasnisula/ot-harjoitustyo/blob/master/Opintopaivakirjasovellus/src/main/java/opintopaivakirjasovellus/dao/SqliteTaskDao.java#L133), joka hakee sisäänkirjautuneen käyttäjän tehtävät
+[Tapahtumankäsittelijä](https://github.com/matiasnisula/ot-harjoitustyo/blob/master/Opintopaivakirjasovellus/src/main/java/opintopaivakirjasovellus/ui/OpintopaivakirjasovellusGUI.java#L101) kutsuu sovelluslogiikasta vastaavan luokan AppService metodia [getAll()](https://github.com/matiasnisula/ot-harjoitustyo/blob/master/Opintopaivakirjasovellus/src/main/java/opintopaivakirjasovellus/domain/AppService.java#L143), joka tarkastaa ensin, että jokin käyttäjä on 
+kirjautunut sisään. Tämän jälkeen metodin sisällä kutsutaan SqliteTaskDao-luokan metodia [getAll(User loggedIn)](https://github.com/matiasnisula/ot-harjoitustyo/blob/master/Opintopaivakirjasovellus/src/main/java/opintopaivakirjasovellus/dao/SqliteTaskDao.java#L141), joka hakee sisäänkirjautuneen käyttäjän tehtävät
 tietokannasta ja palauttaa ne listana. Jos käyttäjällä ei ole yhtään tehtävää, palautetaan tyhjä lista.
 
 
