@@ -1,5 +1,6 @@
 
 package opintopaivakirjasovellus.dao;
+
 import opintopaivakirjasovellus.domain.*;
 import java.sql.*;
 import java.util.ArrayList;
@@ -30,16 +31,17 @@ public class SqliteTaskDao implements TaskDao {
     * @throws SQLException
     */
     private boolean createTableIfDoesntExist() throws SQLException {
-        Connection conn = connect();
+        Connection conn = null;
         boolean created = false;
         try {
+            conn = connect();
             Statement s = conn.createStatement();
             s.execute("CREATE TABLE IF NOT EXISTS Tasks (user_id INTEGER, name TEXT NOT NULL, time INTEGER, done INTEGER, date TEXT);");
             //System.out.println("Table Tasks created");
             s.close();
             created = true;
         } catch (SQLException e) {
-            System.out.println("Creating table failed: " + e.getMessage());
+            
         } finally {
             conn.close();         
         }
@@ -50,15 +52,16 @@ public class SqliteTaskDao implements TaskDao {
     * @throws SQLException
     */
     private boolean createTableHistoryIfDoesntExist() throws SQLException {
-        Connection conn = connect();
+        Connection conn = null;
         boolean created = false;
         try {
+            conn = connect();
             Statement s = conn.createStatement();
             s.execute("CREATE TABLE IF NOT EXISTS History (user_id INTEGER, name TEXT NOT NULL, time INTEGER, date TEXT);");
             s.close();
             created = true;
         } catch (SQLException e) {
-            System.out.println("Creating table failed: " + e.getMessage());
+            
         } finally {
             conn.close();         
         }
@@ -66,8 +69,9 @@ public class SqliteTaskDao implements TaskDao {
     }
     
     private void addTaskToTableHistory(Task task, User user, int time, String date) throws Exception {
-        Connection conn = connect();
+        Connection conn = null;
         try {
+            conn = connect();
             PreparedStatement p = conn.prepareStatement("INSERT INTO History(user_id,name,time,date) VALUES (?,?,?,?);");
             p.setInt(1, userDao.getUserId(user.getUsername()));
             p.setString(2, task.getName());
@@ -76,7 +80,7 @@ public class SqliteTaskDao implements TaskDao {
             p.execute();
             p.close();
         } catch (Exception e) {
-            System.out.println("Adding task failed: " + e.getMessage());
+            
         } finally {
             conn.close();
         }
@@ -87,14 +91,15 @@ public class SqliteTaskDao implements TaskDao {
     * @throws SQLException poikkeus
     */
     public void emptyTables() throws SQLException {
-        Connection conn = connect();
+        Connection conn = null;
         try {
+            conn = connect();
             Statement s = conn.createStatement();
             s.execute("DELETE FROM Tasks;");
             s.execute("DELETE FROM History;");
             s.close();
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            
         } finally {
             conn.close();         
         }
@@ -107,10 +112,11 @@ public class SqliteTaskDao implements TaskDao {
     * @throws Exception poikkeus
     */
     @Override
-    public void create(Task task, User user) throws Exception {
-        Connection conn = connect();
+    public void saveTask(Task task, User user) throws Exception {
+        Connection conn = null;
         try {
-            if (getTask(task.getName(),user) != null) {
+            conn = connect();
+            if (getTask(task.getName(), user) != null) {
                 return;
             }
             PreparedStatement p = conn.prepareStatement("INSERT INTO Tasks(user_id,name,time,done,date) VALUES (?,?,?,?,?);");
@@ -120,24 +126,24 @@ public class SqliteTaskDao implements TaskDao {
             p.setInt(4, task.getDoneInt());
             p.setString(5, task.getDate());
             p.execute();
-            //System.out.println("Task added to database!");
             p.close();
         } catch (Exception e) {
-            System.out.println("Adding task failed: " + e.getMessage());
+            
         } finally {
             conn.close();
         }
     }
     /**
     * Palauttaa tietyn käyttäjän kaikki tehtävät listana.
-    * @param user
+    * @param user käyttäjä
     * throws SQLException poikkeus
     */
     @Override
     public List<Task> getAll(User user) throws SQLException {
-        Connection conn = connect();
+        Connection conn = null;
         List<Task> tasks = new ArrayList<>();
         try {
+            conn = connect();
             PreparedStatement p = conn.prepareStatement("SELECT name, time, done, date FROM Tasks WHERE user_id = "
                     + "(SELECT id FROM Users WHERE username = ?);");
             p.setString(1, user.getUsername());
@@ -222,11 +228,12 @@ public class SqliteTaskDao implements TaskDao {
     }
     /**
     * Yhden käyttäjän kaikkiin tehtäviin käytetty aika yhteensä.
-    * @param user
-    * @throws Exception
+    * @param user sisäänkirjautunut käyttäjä
+    * @throws Exception poikkeus
     * @return käytetty aika yhteensä
     */
     
+    @Override
     public int getTimeUsedAllTasks(User user) throws Exception {
         Connection conn = null;
         int result = 0;
@@ -300,7 +307,7 @@ public class SqliteTaskDao implements TaskDao {
             p.close();
             r.close();
         } catch (Exception e) {
-            System.out.println("Virhe getTask: " + e.getMessage());
+            
         } finally {
             conn.close();
         }
@@ -331,7 +338,7 @@ public class SqliteTaskDao implements TaskDao {
             p.close();
             r.close();
         } catch (SQLException e) {
-            System.out.println("Method getHistory failed: " + e.getMessage());
+            
         } finally {
             conn.close();
         }
@@ -340,8 +347,8 @@ public class SqliteTaskDao implements TaskDao {
     
     /**
     * Poistaa tehtävän tietokannasta.
-    * @param taskName
-    * @param user
+    * @param taskName tehtävän nimi
+    * @param user käyttäjä
     * @throws Exception
     */
     @Override

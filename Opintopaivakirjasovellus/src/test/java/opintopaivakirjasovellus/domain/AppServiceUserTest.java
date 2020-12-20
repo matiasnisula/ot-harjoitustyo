@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package opintopaivakirjasovellus.domain;
 
 import java.io.FileInputStream;
@@ -21,8 +17,7 @@ import org.junit.Rule;
 import org.junit.rules.ExpectedException;
 
 /**
- *
- * @author matnisul
+ * Testaa sovelluslogiikkaluokan AppServicen käyttäjiin liittyviä toimintoja.
  */
 public class AppServiceUserTest {
     SqliteUserDao userDao;
@@ -48,13 +43,8 @@ public class AppServiceUserTest {
     @Before
     public void setUp() throws SQLException {
         userDao.emptyTables();
-        taskDao.emptyTables();
     }
     
-    @After
-    public void tearDown() {
-    }
-
     @Test
     public void loggingInWorks() throws Exception {
         service.createUser("Matias", "MN");

@@ -1,8 +1,6 @@
 
 package opintopaivakirjasovellus.ui;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
@@ -18,7 +16,7 @@ public class CreateUserView {
     private final double fontSize = 40.0;
     private Button logInButton;
     private Button createNewUserButton;
-    private TextField userTextField;
+    private TextField usernameTextField;
     private TextField nameTextField;
     private Label messages;
     
@@ -33,9 +31,9 @@ public class CreateUserView {
         userName.setFont(new Font(fontSize));
         grid.add(userName, 0, 1);
         
-        userTextField = new TextField();
-        userTextField.setFont(new Font(fontSize));
-        grid.add(userTextField, 1, 1);
+        usernameTextField = new TextField();
+        usernameTextField.setFont(new Font(fontSize));
+        grid.add(usernameTextField, 1, 1);
         
         Label name = new Label("Nimi: ");
         name.setFont(new Font(fontSize));
@@ -73,13 +71,13 @@ public class CreateUserView {
     public Button getCreateNewuserButton() {
         return this.createNewUserButton;
     }
-    public TextField getUserTextField() {
-        return this.userTextField;
+    public TextField getUsernameTextField() {
+        return this.usernameTextField;
     }
     public TextField getNameTextField() {
         return this.nameTextField;
     }
-    public Label getMessages() {
+    public Label getUserInfo() {
         return this.messages;
     }
 }

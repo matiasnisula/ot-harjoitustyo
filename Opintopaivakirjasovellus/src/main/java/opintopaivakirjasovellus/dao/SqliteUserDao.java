@@ -30,7 +30,7 @@ public class SqliteUserDao implements UserDao {
         try {
             conn = DriverManager.getConnection(url);
         } catch (SQLException e) {
-            System.out.println("Database connection failed: " + e.getMessage());
+            
         } 
         return conn;
     }
@@ -40,16 +40,16 @@ public class SqliteUserDao implements UserDao {
     * @return true tai false riippuen onnistuiko luonti vai ei.
     */
     private boolean createTableIfDoesntExist() throws SQLException {
-        Connection conn = connect();
+        Connection conn = null;
         boolean created = false;
         try {
+            conn = connect();
             Statement s = conn.createStatement();
             s.execute("CREATE TABLE IF NOT EXISTS Users (id INTEGER PRIMARY KEY, name TEXT, username TEXT UNIQUE);");
-            //System.out.println("Table Users created");
             s.close();
             created = true;
         } catch (SQLException e) {
-            //System.out.println("Creating table failed: " + e.getMessage());
+            
         } finally {
             conn.close();         
         }     
@@ -60,13 +60,14 @@ public class SqliteUserDao implements UserDao {
     * @throws SQLException poikkeus
     */
     public void emptyTables() throws SQLException {
-        Connection conn = connect();
+        Connection conn = null;
         try {
+            conn = connect();
             Statement s = conn.createStatement();
             s.execute("DELETE FROM Users;");
             s.close();
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            
         } finally {
             conn.close();         
         }
@@ -77,9 +78,10 @@ public class SqliteUserDao implements UserDao {
     * @throws SQLException
     */
     @Override
-    public void addUser(User user) throws SQLException {
-        Connection conn = connect();
+    public void saveUser(User user) throws SQLException {
+        Connection conn = null;
         try {
+            conn = connect();
             PreparedStatement p = conn.prepareStatement("INSERT INTO Users (name, username) VALUES(?,?)");
             p.setString(1, user.getName());
             p.setString(2, user.getUsername());
@@ -99,9 +101,10 @@ public class SqliteUserDao implements UserDao {
     */
     @Override
     public int getUserId(String username) throws SQLException {
-        Connection conn = connect();
+        Connection conn = null;
         int id = 0;
         try {
+            conn = connect();
             PreparedStatement p = conn.prepareStatement("SELECT id FROM Users WHERE username=?");
             p.setString(1, username);
             ResultSet r = p.executeQuery();
@@ -109,7 +112,7 @@ public class SqliteUserDao implements UserDao {
             p.close();
             r.close();
         } catch (SQLException e) {
-            //System.out.println("Getting userId failed " + e.getMessage());
+            
         } finally {
             conn.close();
         }
@@ -134,7 +137,7 @@ public class SqliteUserDao implements UserDao {
             p.close();
             r.close();
         } catch (SQLException e) {
-            System.out.println("Virhe metodissa getAll(), SqliteUserDao" + e.getMessage());
+            
         } finally {
             conn.close();
         }
@@ -157,13 +160,11 @@ public class SqliteUserDao implements UserDao {
             ResultSet r = p.executeQuery();
             if (r.next()) {
                 user = new User(r.getString("name"), r.getString("username"));
-            } else {
-                System.out.println("Ei löytynyt");
             }
             p.close();
             r.close();
         } catch (SQLException e) {
-            System.out.println("Username: " + username + " doesnt exists: " + e.getMessage());
+            
         } finally {
             conn.close();
         }
@@ -188,7 +189,7 @@ public class SqliteUserDao implements UserDao {
             p.close();
             r.close();
         } catch (SQLException e) {
-            System.out.println("Username: " + username + " doesnt exists: " + e.getMessage());
+            
         } finally {
             conn.close();
         }

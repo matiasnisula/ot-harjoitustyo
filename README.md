@@ -2,9 +2,9 @@
 
 ## Opintopäiväkirjasovellus
 
-Sovelluksen avulla käyttäjän on mahdollista pitää kirjaa opintoihin käyttämästään ajasta. Sovellus käyttää SQLite-tietokantaa.
+Sovelluksen avulla käyttäjän on mahdollista pitää kirjaa opintoihin tai muihin aktiiviteetteihin käyttämästään ajasta. Sovellus käyttää SQLite-tietokantaa.
 
-Tällä hetkellä sovelluksessa on toiminnot                                                                                                     
+Sovelluksessa on toiminnot                                                                                                     
 
  - Käyttäjän luomiselle
 
@@ -12,11 +12,15 @@ Tällä hetkellä sovelluksessa on toiminnot
 
  - Vapaavalintaisen tehtävän (esim.kurssin) lisäämiselle
  
- - Lisättyjen tehtävien näyttäminen
+ - Tehtävän merkkaaminen tehdyksi
+
+ - Tehtävän poistaminen
+
+ - Tehtyjen ja tekemättömien tehtävien ja niihin käytetyn ajan tarkasteleminen
 
  - Tehtävään käytetyn ajan lisääminen
 
- - Tehtäväkohtaisten suoritusten tarkasteleminen
+ - Tehtäväkohtaisten suoritushistorian tarkasteleminen
 
 
 Sovellusta käytetään graafisen käyttöliittymän kautta.
@@ -27,6 +31,7 @@ Sovellusta käytetään graafisen käyttöliittymän kautta.
 
 [Viikko 6](https://github.com/matiasnisula/ot-harjoitustyo/releases/tag/Viikko6)
 
+[Loppupalautus](https://github.com/matiasnisula/ot-harjoitustyo/releases/tag/loppupalautus)
 
 ## Komentorivitoiminnot
 
@@ -76,3 +81,5 @@ Projektin koodin pystyy suorittamaan komennolla
 [Arkkitehtuurikuvaus](https://github.com/matiasnisula/ot-harjoitustyo/blob/master/dokumentaatio/arkkitehtuuri.md)
 
 [Käyttöohje](https://github.com/matiasnisula/ot-harjoitustyo/blob/master/dokumentaatio/kayttoohje.md)
+
+[Testaus](https://github.com/matiasnisula/ot-harjoitustyo/blob/master/dokumentaatio/testaus.md)

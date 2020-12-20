@@ -1,24 +1,20 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package opintopaivakirjasovellus.dao;
 
 import java.io.FileInputStream;
 import java.io.InputStream;
-import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 import opintopaivakirjasovellus.domain.Task;
 import opintopaivakirjasovellus.domain.User;
+
+/**
+ * Tehtäviin liittyvistä tietokantatoiminnoista vastaavan luokan testiluokka.
+ *
+ */
 
 public class SqliteTaskDaoTest {
     String url;
@@ -51,8 +47,8 @@ public class SqliteTaskDaoTest {
         taskDao.emptyTables();
         user = new User("Pekka", "Pekka1");
         user1 = new User("Matias", "MN");
-        userDao.addUser(user);
-        userDao.addUser(user1);
+        userDao.saveUser(user);
+        userDao.saveUser(user1);
         task = new Task("Kurssi1", user, "7.12.2020");
         task1 = new Task("Kurssi2", user, "8.12.2020");
         task2 = new Task("Tira", user1, "10.10.1990");
@@ -64,8 +60,8 @@ public class SqliteTaskDaoTest {
     public void getTimeUsedAllTasksWorks() throws Exception {
         task.addTime(4);
         task1.addTime(3);
-        taskDao.create(task, user);
-        taskDao.create(task1, user);
+        taskDao.saveTask(task, user);
+        taskDao.saveTask(task1, user);
         assertEquals(7, taskDao.getTimeUsedAllTasks(user));
     }
     @Test
@@ -77,12 +73,12 @@ public class SqliteTaskDaoTest {
         assertEquals(0, taskDao.getTimeUsedOneTask(task, user));
     }
     @Test
-    public void getTimeUsedOneTasksWorks() throws Exception {
-        taskDao.create(task, user);
-        taskDao.create(task1, user);
-        taskDao.create(task2, user);
-        taskDao.create(task3, user1);
-        taskDao.create(task1, user1);
+    public void getTimeUsedOneTaskWorks() throws Exception {
+        taskDao.saveTask(task, user);
+        taskDao.saveTask(task1, user);
+        taskDao.saveTask(task2, user);
+        taskDao.saveTask(task3, user1);
+        taskDao.saveTask(task1, user1);
         taskDao.addTimeUsed(task, user, 2, "10.10.2000");
         taskDao.addTimeUsed(task1, user, 4, "10.10.2000");
         taskDao.addTimeUsed(task, user, 3, "10.10.2000");
@@ -101,7 +97,7 @@ public class SqliteTaskDaoTest {
     @Test
     public void addingTimeThrowsExceptionIfUserDoesntExists() {
         try {
-            taskDao.create(task, user);
+            taskDao.saveTask(task, user);
             User testUser = new User("M", "N");
             taskDao.addTimeUsed(task, testUser, 2, "10.12.2002");
         } catch (Exception e) {
@@ -111,14 +107,14 @@ public class SqliteTaskDaoTest {
     
     @Test
     public void addingTimeToTaskWorks() throws Exception {
-        taskDao.create(task, user);
+        taskDao.saveTask(task, user);
         taskDao.addTimeUsed(task, user, 4, "10.09.2020");
         assertEquals(4, taskDao.getTimeUsedOneTask(task, user));
         
     }
     @Test
     public void addingTimeToTaskDoesntAddNegativeInteger() throws Exception {
-        taskDao.create(task, user);
+        taskDao.saveTask(task, user);
         taskDao.addTimeUsed(task, user, 4, "10.09.2020");
         taskDao.addTimeUsed(task, user, -2, "10.09.2020");
         assertEquals(4, taskDao.getTimeUsedOneTask(task, user));
@@ -126,27 +122,27 @@ public class SqliteTaskDaoTest {
     }
     @Test
     public void getAllTasksForOneUser() throws Exception {
-        taskDao.create(task, user);
-        taskDao.create(task1, user);
+        taskDao.saveTask(task, user);
+        taskDao.saveTask(task1, user);
         List<Task> list = taskDao.getAll(user);
         assertEquals(true, list.contains(task) && list.contains(task1));
     }
     @Test
     public void addingTaskToDatabaseWorks() throws Exception {
-        taskDao.create(task, user);
+        taskDao.saveTask(task, user);
         assertEquals("Kurssi1", taskDao.getTask("Kurssi1", user).getName());
     }
 
     @Test
     public void noTwoSameTasksForOneUser() throws Exception {
-        taskDao.create(task, user);
-        taskDao.create(task, user);
+        taskDao.saveTask(task, user);
+        taskDao.saveTask(task, user);
         List<Task> tasks = taskDao.getAll(user);
         assertEquals(1, tasks.size());
     }
     @Test
     public void getTaskFromDatabaseWorks() throws Exception {
-        taskDao.create(task, user);
+        taskDao.saveTask(task, user);
         assertEquals("Kurssi1", taskDao.getTask("Kurssi1", user).getName());
     }
     @Test
@@ -155,7 +151,7 @@ public class SqliteTaskDaoTest {
     }
     @Test
     public void setTaskDoneWorks() throws Exception {
-        taskDao.create(task, user);
+        taskDao.saveTask(task, user);
         taskDao.setDone(task, user);
         assertEquals(true, taskDao.getTask(task.getName(), user).getDone());
     }
@@ -170,7 +166,7 @@ public class SqliteTaskDaoTest {
     }
     @Test
     public void getHistoryOneTaskWorks() throws Exception {
-        taskDao.create(task, user);
+        taskDao.saveTask(task, user);
         taskDao.addTimeUsed(task, user, 2, "10.10.1990");
         taskDao.addTimeUsed(task, user, 4, "11.10.1990");
         List<Task> history = taskDao.getHistoryOneTask(task.getName(), user);
@@ -179,8 +175,8 @@ public class SqliteTaskDaoTest {
     
     @Test
     public void deleteTaskWorks() throws Exception {
-        taskDao.create(task, user);
-        taskDao.create(task1, user);
+        taskDao.saveTask(task, user);
+        taskDao.saveTask(task1, user);
         taskDao.deleteTask(task.getName(), user);
         List<Task> tasks = taskDao.getAll(user);
         assertEquals(1, tasks.size());
@@ -188,8 +184,8 @@ public class SqliteTaskDaoTest {
     @Test
     public void deleteTaskThrowsExceptionIfTaskDoesntExists()  {
         try {
-            taskDao.create(task, user);
-            taskDao.create(task1, user);
+            taskDao.saveTask(task, user);
+            taskDao.saveTask(task1, user);
             taskDao.deleteTask("Tehtävä", user);
         } catch (Exception e) {
             assertEquals(true, e.getMessage().equals("Tehtävän poistaminen epäonnistui"));

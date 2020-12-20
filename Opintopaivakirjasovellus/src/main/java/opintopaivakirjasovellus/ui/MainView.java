@@ -10,7 +10,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -43,7 +42,6 @@ public class MainView {
         
         vbox.setPadding(new Insets(10));
         vbox.setSpacing(30);
-        //vbox.setPadding(new Insets(25, 25, 25, 25));
         vbox.autosize();
         
         addNewTask = new Button("Lisää tehtävä");
@@ -117,7 +115,6 @@ public class MainView {
         vbox.getChildren().add(messages);
           
         table = new TableView<Task>();
-        //table.setEditable(true);
         TableColumn<Task, String> nameColumn = new TableColumn("Nimi");
         nameColumn.setMinWidth(500);
         
@@ -132,7 +129,6 @@ public class MainView {
         dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
         
         table.getColumns().addAll(nameColumn, timeColumn, dateColumn);
-        //table.setMaxSize(1800, 1200);
         table.autosize();
         table.setStyle("-fx-font-weight:bold;\n" +
                        "-fx-font-size:35px;");
@@ -142,15 +138,15 @@ public class MainView {
         return pane;
     }
 
-    public Button getAddNewTask() {
+    public Button getAddNewTaskButton() {
         return addNewTask;
     }
 
-    public Button getTask() {
+    public Button getTaskButton() {
         return getTask;
     }
 
-    public Button getAll() {
+    public Button getAllButton() {
         return getAllUndoneTasks;
     }
     public Button getAllDoneButton() {
@@ -160,29 +156,29 @@ public class MainView {
         return this.markDone;
     }
 
-    public Button getAddTimeUsed() {
+    public Button getAddTimeUsedButton() {
         return addTimeUsed;
     }
-    public Button deleteTask() {
+    public Button deleteTaskButton() {
         return deleteTask;
     }
-    public TextField deleteTaskName() {
+    public TextField deleteTaskNameText() {
         return deleteTaskName;
     }
 
-    public TextField getAddNewTaskName() {
+    public TextField getAddNewTaskNameText() {
         return addNewTaskName;
     }
 
-    public TextField getTaskName() {
+    public TextField getTaskNameText() {
         return getTaskName;
     }
 
-    public TextField getAddTimeTaskName() {
+    public TextField getAddTimeTaskNameText() {
         return addTimeTaskName;
     }
 
-    public TextField getAddTimeUsedTime() {
+    public TextField getAddTimeUsedTimeText() {
         return addTimeUsedTime;
     }
     public TextField getMarkDoneText() {
@@ -192,10 +188,10 @@ public class MainView {
     public TableView<Task> getTable() {
         return table;
     }
-    public Button getLogOut() {
+    public Button getLogOutButton() {
         return this.logOut;
     }
-    public Label getMessages() {
+    public Label getUserInfo() {
         return this.messages;
     }
 }

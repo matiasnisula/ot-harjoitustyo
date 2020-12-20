@@ -1,7 +1,6 @@
 
 package opintopaivakirjasovellus.dao;
 
-import java.util.ArrayList;
 import java.util.List;
 import opintopaivakirjasovellus.domain.Task;
 import opintopaivakirjasovellus.domain.User;
@@ -15,7 +14,7 @@ public interface TaskDao {
     * @param user käyttäjä
     * @throws Exception   
     */
-    void create(Task task, User user) throws Exception;
+    void saveTask(Task task, User user) throws Exception;
     /**
     * Asettaa tehtävän tehdyksi.
     * @param task tehtävä
@@ -59,8 +58,7 @@ public interface TaskDao {
     /**
     * Paluttaa käyttäjän kaikkiin tehtäviin käyttämän ajan.
     * @param user käyttäjä
-    * @throws
-    /** Exception poikkeus
+    * @throws Exception poikkeus
     * @return aika yhteensä
     */
     int getTimeUsedAllTasks(User user) throws Exception;

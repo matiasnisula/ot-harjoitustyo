@@ -27,7 +27,7 @@ public class LogInView {
         grid.setVgap(10);
         grid.setPadding(new Insets(25, 25, 25, 25));
         
-        Label userName = new Label("Username");
+        Label userName = new Label("Käyttäjätunnus");
         userName.setFont(new Font(fontSize));
         grid.add(userName, 0, 1);
         
@@ -63,10 +63,10 @@ public class LogInView {
     public Button getCreateNewuserButton() {
         return this.createNewUserButton;
     }
-    public TextField getTextField() {
+    public TextField getLoginTextField() {
         return this.userTextField;
     }
-    public Label getMessages() {
+    public Label getUserInfo() {
         return messages;
     }
 }

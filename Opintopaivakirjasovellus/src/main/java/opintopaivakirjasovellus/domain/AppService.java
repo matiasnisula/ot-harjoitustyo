@@ -42,7 +42,7 @@ public class AppService {
         }
         Task task = new Task(taskName, loggedIn, getTimestamp()); 
         try {
-            taskDao.create(task, loggedIn);
+            taskDao.saveTask(task, loggedIn);
             created = true;
         } catch (SQLException e) {
         }
@@ -68,7 +68,7 @@ public class AppService {
         if (userDao.usernameExists(username)) {
             return false;
         } else {
-            userDao.addUser(new User(name, username));
+            userDao.saveUser(new User(name, username));
             
             created = true;
         }
@@ -186,7 +186,7 @@ public class AppService {
             timeUsed = taskDao.getTimeUsedOneTask(taskDao.getTask(taskName, loggedIn), loggedIn); 
             
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            
         }
         return timeUsed;
     }

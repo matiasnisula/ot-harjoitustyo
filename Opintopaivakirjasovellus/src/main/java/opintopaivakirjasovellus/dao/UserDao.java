@@ -13,7 +13,7 @@ public interface UserDao {
     * @param user käyttäjäolio, joka lisätään tietokantaan
     * @throws Exception   
     */
-    void addUser(User user) throws Exception;
+    void saveUser(User user) throws Exception;
     /**
     * Etsii käyttäjän käyttäjänimen peruteella.
     * @param username tämän avulla etsitään käyttäjä

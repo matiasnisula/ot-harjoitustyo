@@ -9,8 +9,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- *
- * @author matnisul
+ * Tehtäväolion testiluokka.
  */
 public class TaskTest {
     

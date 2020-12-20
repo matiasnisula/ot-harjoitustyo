@@ -2,9 +2,12 @@
 
 Lataa tiedosto [Opintopaivakirjasovellus.jar](https://github.com/matiasnisula/ot-harjoitustyo/releases/tag/Viikko6)
 
-Sovellus olettaa, että käyttäjällä on asennettuna Javan versio 11.
+Sovellus olettaa, että käyttäjällä on asennettuna Javan versio 11. Uusin release sisältää tiedoston config.properties, joka määrittelee 
+tietokantojen nimet. Se **täytyy** sijoittaa samaan kansioon suoritettavan jar-tiedoston kanssa.
 
 ### Ohjelman käynnistäminen
+
+Kun tiedosto config.properties on sijoitettu samaan kansioon;
 
 > java -jar Opintopaivakirjasovellus.jar
 

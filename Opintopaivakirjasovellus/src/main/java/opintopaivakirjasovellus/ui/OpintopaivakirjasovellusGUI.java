@@ -32,27 +32,27 @@ public class OpintopaivakirjasovellusGUI extends Application {
         primaryStage.setTitle("Opintopäiväkirjasovellus");
         Scene logInScene = new Scene(logInView.getView(), 1200, 700);
         Scene createUserScene = new Scene(createUserView.getView(), 1200, 700);
-        Scene mainScene = new Scene(mainView.getView(), 1800, 1800);
+        Scene mainScene = new Scene(mainView.getView(), 1800, 1500);
 
         //Sisäänkirjautumisnäkymän toiminnallisuus
         logInView.getLogInButton().setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 try {
-                    logInView.getMessages().setText("");
+                    logInView.getUserInfo().setText("");
                     primaryStage.setScene(logInScene);
-                    String username = logInView.getTextField().getText();
+                    String username = logInView.getLoginTextField().getText();
                     boolean found = service.login(username);
                     if (found) {
                         primaryStage.setScene(mainScene);
                         mainView.getTable().setItems(getTasks());     
                     } else {
-                        logInView.getMessages().setText("Kirjautuminen epäonnistui");
-                        logInView.getTextField().setText("");
+                        logInView.getUserInfo().setText("Kirjautuminen epäonnistui");
+                        logInView.getLoginTextField().setText("");
                     }
                     
                 } catch (Exception ex) {
-                    System.out.println("Virhe GUI: " + ex.getMessage());
+                    
                 }
             }
         });
@@ -70,17 +70,17 @@ public class OpintopaivakirjasovellusGUI extends Application {
             @Override
             public void handle(ActionEvent event) {
                 try {
-                    createUserView.getMessages().setText("");
+                    createUserView.getUserInfo().setText("");
                     String name = createUserView.getNameTextField().getText();
-                    String username = createUserView.getUserTextField().getText();
+                    String username = createUserView.getUsernameTextField().getText();
                     boolean created = service.createUser(name, username);
                     if (created) {
-                        createUserView.getMessages().setText("Käyttäjän luonti onnistui!");
+                        createUserView.getUserInfo().setText("Käyttäjän luonti onnistui!");
                     } else {
-                        createUserView.getMessages().setText("Käyttäjätunnus on jo olemassa!");
+                        createUserView.getUserInfo().setText("Käyttäjätunnus on jo olemassa!");
                     }
                 } catch (Exception ex) {
-                    System.out.println("Virhe GUI: " + ex.getMessage());
+                    
                 }
             }
         });
@@ -90,22 +90,23 @@ public class OpintopaivakirjasovellusGUI extends Application {
             public void handle(ActionEvent event) {
                 primaryStage.setScene(logInScene);
                 createUserView.getNameTextField().setText("");
-                createUserView.getUserTextField().setText("");
-                createUserView.getMessages().setText("");
+                createUserView.getUsernameTextField().setText("");
+                createUserView.getUserInfo().setText("");
+                logInView.getLoginTextField().setText("");
             }
         });
         
         
         //Päänäkymän toiminnallisuus
-        mainView.getAll().setOnAction(new EventHandler<ActionEvent>() {
+        mainView.getAllButton().setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 try {
-                    mainView.getMessages().setText("");
+                    mainView.getUserInfo().setText("");
                     tasks = FXCollections.observableArrayList();
                     List<Task> allTasks = service.getAll();
                     if (allTasks.isEmpty()) {
-                        mainView.getMessages().setText("Sinulla ei ole tehtäviä");
+                        mainView.getUserInfo().setText("Sinulla ei ole tehtäviä");
                         return;
                     }
                     for (Task t: allTasks) {
@@ -114,62 +115,62 @@ public class OpintopaivakirjasovellusGUI extends Application {
                         }
                     }
                     if (tasks.isEmpty()) {
-                        mainView.getMessages().setText("Sinulla ei ole tekemättömiä tehtäviä");
+                        mainView.getUserInfo().setText("Sinulla ei ole tekemättömiä tehtäviä");
                     }
                     mainView.getTable().setItems(tasks);
                 } catch (Exception e) {
-                    System.out.println(e);
+                    
                 }
             }
         });
-        mainView.getAddNewTask().setOnAction(new EventHandler<ActionEvent>() {
+        mainView.getAddNewTaskButton().setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 try {
-                    mainView.getMessages().setText("");
-                    String taskName = mainView.getAddNewTaskName().getText();
+                    mainView.getUserInfo().setText("");
+                    String taskName = mainView.getAddNewTaskNameText().getText();
                     boolean created = service.createTask(taskName);
                     if (!created) {
-                        mainView.getMessages().setText("Tehtävän luonti epäonnistui");
-                        mainView.getAddNewTaskName().setText("");
+                        mainView.getUserInfo().setText("Tehtävän luonti epäonnistui");
+                        mainView.getAddNewTaskNameText().setText("");
                         return;
                     }
-                    mainView.getMessages().setText("Tehtävän luonti onnistui");
+                    mainView.getUserInfo().setText("Tehtävän luonti onnistui");
                     System.out.println("Lisääminen onnistui");
-                    mainView.getAddNewTaskName().setText("");
+                    mainView.getAddNewTaskNameText().setText("");
                 } catch (Exception e) {
-                    System.out.println(e);
+                    
                 }
             }
         });
-        mainView.getTask().setOnAction(new EventHandler<ActionEvent>() {
+        mainView.getTaskButton().setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 try {
-                    mainView.getMessages().setText("");
-                    String taskName = mainView.getTaskName().getText();
+                    mainView.getUserInfo().setText("");
+                    String taskName = mainView.getTaskNameText().getText();
                     tasks = FXCollections.observableArrayList();
                     List<Task> list = service.getHistoryOneTask(taskName);
                     if (list.isEmpty()) {
-                        mainView.getMessages().setText("Tehtävää ei löydy");
+                        mainView.getUserInfo().setText("Tehtävää ei löydy");
                         return;
                     }
                     for (Task t : list) {
                         tasks.add(t);
                     }
                     mainView.getTable().setItems(tasks);
-                    mainView.getTaskName().setText("");
+                    mainView.getTaskNameText().setText("");
                 } catch (Exception e) {
-                    System.out.println(e);
+                    
                 }
             }
         });
-        mainView.getLogOut().setOnAction(new EventHandler<ActionEvent>() {
+        mainView.getLogOutButton().setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 service.logOut();
                 primaryStage.setScene(logInScene);
-                logInView.getMessages().setText("");
+                logInView.getUserInfo().setText("");
             }
         });
         
@@ -182,12 +183,17 @@ public class OpintopaivakirjasovellusGUI extends Application {
                     return;
                 }
                 try {
-                    mainView.getMessages().setText("");
+                    if (service.getTask(taskName) == null) {
+                        mainView.getUserInfo().setText("Tehtävää ei löydy");
+                        mainView.getMarkDoneText().setText("");
+                        return;
+                    }
+                    mainView.getUserInfo().setText("");
                     service.markDoneTask(taskName);
                     mainView.getMarkDoneText().setText("");
-                    mainView.getMessages().setText("Tehtävä merkattiin tehdyksi");
+                    mainView.getUserInfo().setText("Tehtävä merkattiin tehdyksi");
                 } catch (Exception e) {
-                    mainView.getMessages().setText("Tehtävää ei löydy");
+                    mainView.getUserInfo().setText("Tehtävää ei löydy");
                 }
             }
         });
@@ -195,11 +201,11 @@ public class OpintopaivakirjasovellusGUI extends Application {
             @Override
             public void handle(ActionEvent event) {
                 try {
-                    mainView.getMessages().setText("");
+                    mainView.getUserInfo().setText("");
                     tasks = FXCollections.observableArrayList();
                     List<Task> allTasks = service.getAll();
                     if (allTasks.isEmpty()) {
-                        mainView.getMessages().setText("Sinulla ei ole tehtäviä");
+                        mainView.getUserInfo().setText("Sinulla ei ole tehtäviä");
                         return;
                     }
                     for (Task t: allTasks) {
@@ -208,7 +214,7 @@ public class OpintopaivakirjasovellusGUI extends Application {
                         }
                     }
                     if (tasks.isEmpty()) {
-                        mainView.getMessages().setText("Sinulla ei ole tehtyjä tehtäviä");
+                        mainView.getUserInfo().setText("Sinulla ei ole tehtyjä tehtäviä");
                     }
                     mainView.getTable().setItems(tasks);
                     
@@ -218,13 +224,13 @@ public class OpintopaivakirjasovellusGUI extends Application {
             }
         });
         
-        mainView.getAddTimeUsed().setOnAction(new EventHandler<ActionEvent>() {
+        mainView.getAddTimeUsedButton().setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 try {
-                    mainView.getMessages().setText("");
-                    String taskName = mainView.getAddTimeTaskName().getText();
-                    String timeStr = mainView.getAddTimeUsedTime().getText();
+                    mainView.getUserInfo().setText("");
+                    String taskName = mainView.getAddTimeTaskNameText().getText();
+                    String timeStr = mainView.getAddTimeUsedTimeText().getText();
                     taskName = taskName.trim();
                     timeStr = timeStr.trim();
                     int time = 0;
@@ -234,32 +240,42 @@ public class OpintopaivakirjasovellusGUI extends Application {
                             return;
                         }
                     } else {
-                        mainView.getMessages().setText("Syötä aika oikeassa muodossa");
+                        mainView.getUserInfo().setText("Syötä aika oikeassa muodossa");
                         return;
                     }
-                    if (service.getTask(taskName) == null) {
-                        mainView.getMessages().setText("Tehtävää ei löydy");
+                    Task task = service.getTask(taskName);
+                    if (task == null) {
+                        mainView.getUserInfo().setText("Tehtävää ei löydy");
+                        return;
+                    }
+                    if (task.getDone()) {
+                        mainView.getUserInfo().setText("Tehtävä on merkattu jo tehdyksi");
                         return;
                     }
                     service.addTimeUsed(taskName, time);
-                    mainView.getAddTimeTaskName().setText("");
-                    mainView.getAddTimeUsedTime().setText("");
-                    mainView.getMessages().setText("Tehtävälistaa päivitetty");
+                    mainView.getAddTimeTaskNameText().setText("");
+                    mainView.getAddTimeUsedTimeText().setText("");
+                    mainView.getUserInfo().setText("Tehtävälistaa päivitetty");
                 } catch (Exception e) {
                     
                 }
                 
             }
         });
-        mainView.deleteTask().setOnAction(new EventHandler<ActionEvent>() {
+        mainView.deleteTaskButton().setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 try {
-                    String taskName = mainView.deleteTaskName().getText();
+                    String taskName = mainView.deleteTaskNameText().getText();
+                    if (service.getTask(taskName) == null) {
+                        mainView.getUserInfo().setText("Tehtävää ei löydy");
+                        mainView.deleteTaskNameText().setText("");
+                        return;
+                    }
                     service.deleteTask(taskName);
-                    mainView.deleteTaskName().setText("");
+                    mainView.deleteTaskNameText().setText("");
                 } catch (Exception e) {
-                    mainView.deleteTaskName().setText("Tehtävää ei löydy");
+                 
                 }
                 
             }
@@ -284,12 +300,13 @@ public class OpintopaivakirjasovellusGUI extends Application {
     
     @Override
     public void init() throws Exception {
+        //Lukee tietokantojen nimet tiedostosta
         try (InputStream input = new FileInputStream("config.properties")) {
             Properties properties = new Properties();
             properties.load(input);
             url = properties.getProperty("db.url");
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            System.out.println("Tarkasta, että tiedosto config.properties sijaitsee samassa kansiossa");
         }
         
         logInView = new LogInView();
