@@ -49,3 +49,5 @@ tiettynä päivänä
 -Käyttäjä pystyy kirjaamisen yhteydessä kirjoittaa lisätietoja suorituksesta
 
 -Suoritukseen lisättävän ajan muuttaminen desimaaliluvuksi, koska tällä hetkellä pystyy kirjaamaan vain kokonaisia tunteja
+
+-Tehtyjen tehtävien tarkasteluun päivämäärä, milloin saatu valmiiksi
