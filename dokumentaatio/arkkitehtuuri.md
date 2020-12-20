@@ -116,6 +116,11 @@ tietokannasta ja palauttaa ne listana. Jos käyttäjällä ei ole yhtään teht�
 
 
 
+### Sovellukseen jääneitä heikkouksia
+
+Käyttäjän lisäämä aika tallennetaan kokonaislukuina, mikä mahdollistaa vain kokonaisten tuntien lisäämisen. Lisäksi tietokannan tauluun *Tasks* sarakkeeseen 
+*user_id* ei ole asetettu varmistavaa ehtoa, vaikka se viittaa Users-taulun sarakkeeseen *id*.  
+
 
 
 
