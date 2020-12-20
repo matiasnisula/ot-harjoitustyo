@@ -1,6 +1,6 @@
 # Käyttöohje
 
-Lataa tiedosto [Opintopaivakirjasovellus.jar](https://github.com/matiasnisula/ot-harjoitustyo/releases/tag/Viikko6)
+Lataa tiedosto [Opintopaivakirjasovellus.jar](https://github.com/matiasnisula/ot-harjoitustyo/releases/tag/loppupalautus)
 
 Sovellus olettaa, että käyttäjällä on asennettuna Javan versio 11. Uusin release sisältää tiedoston config.properties, joka määrittelee 
 tietokantojen nimet. Se **täytyy** sijoittaa samaan kansioon suoritettavan jar-tiedoston kanssa. Sovellus luo käynnistyksen yhteydessä tietokantatiedoston 
