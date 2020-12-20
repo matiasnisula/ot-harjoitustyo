@@ -41,8 +41,8 @@ Luokkien suhteita toisiinsa on kuvattu seuraavassa luokkakaaviossa;
 
 ### Tietojen pysyväistallennus
 
-Sovellus tallettaa tietoa **SQLite-tietokantaan**. Tiedon tallennus on toteutettu pakkauksessa opintopaivakirjasovellus.dao, ja siellä tallennuksesta vastaavat 
-luokat SqliteTaskDao sekä SqliteUserDao. Luokat toteuttavat rajapinnat TaskDao sekä UserDao. Ne noudattavat **Data Access Object** -suunnittelumallia.
+Sovellus tallettaa tietoa [SQLite-tietokantaan](https://www.sqlite.org/index.html). Tiedon tallennus on toteutettu pakkauksessa opintopaivakirjasovellus.dao, ja siellä tallennuksesta vastaavat 
+luokat [SqliteTaskDao](https://github.com/matiasnisula/ot-harjoitustyo/blob/master/Opintopaivakirjasovellus/src/main/java/opintopaivakirjasovellus/dao/SqliteTaskDao.java#L9) sekä [SqliteUserDao](https://github.com/matiasnisula/ot-harjoitustyo/blob/master/Opintopaivakirjasovellus/src/main/java/opintopaivakirjasovellus/dao/SqliteUserDao.java#L11). Luokat toteuttavat rajapinnat [TaskDao](https://github.com/matiasnisula/ot-harjoitustyo/blob/master/Opintopaivakirjasovellus/src/main/java/opintopaivakirjasovellus/dao/TaskDao.java#L10) sekä [UserDao](https://github.com/matiasnisula/ot-harjoitustyo/blob/master/Opintopaivakirjasovellus/src/main/java/opintopaivakirjasovellus/dao/UserDao.java#L6). Ne noudattavat [Data Access Object](https://en.wikipedia.org/wiki/Data_access_object) -suunnittelumallia.
 TaskDao tarvitsee tietoa käyttäjistä, joten sillä on muuttujana UserDao-olio.
 
 **Tietokanta**
