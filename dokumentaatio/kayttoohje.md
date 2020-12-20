@@ -10,6 +10,7 @@ jar-tiedosto sijaitsee.
 ### Tiedoston config.properties sisältö
 
 **db.url=jdbc:sqlite:tietokanta.db**
+
 **db.testiUrl=jdbc:sqlite:testi.db**
 
 Oletuksena sovelluksen käyttämän tietokannan nimeksi tulee *tietokanta.db*, ja testausta varten tarvittavan tietokantatiedoston nimeksi *testi.db*.
